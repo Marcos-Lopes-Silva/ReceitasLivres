@@ -1,0 +1,44 @@
+@import "styles/variaveis";
+@import "styles/breakpoints";
+
+.nav {
+    padding: 20px $padding-horizontal;
+
+    @media (max-width: $desktop_xsm) {
+        padding: 20px $padding-horizontal-mobile;
+    }
+
+    @media (min-width: $desktop_xsm) and (max-width: $desktop_sm) {
+        padding: 20px $padding-horizontal-sm;
+    }
+
+    @media (min-width: $desktop_sm) and (max-width: $desktop_md) {
+        padding: 20px $padding-horizontal-md;
+    }
+}
+
+.lista {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.item {
+    padding-right: 100px;
+    font-size: 35px;
+}
+
+.itemLogin {
+    padding-right: 670px;
+    font-size: 35px;
+}
+
+.login {
+
+    padding-right: 50px;
+}
+
+.sign {
+    padding-left: 0;
+
+}
