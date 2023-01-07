@@ -1,5 +1,0 @@
-package com.testreact.reactjs.entities;
-
-public class Telefone {
-
-}

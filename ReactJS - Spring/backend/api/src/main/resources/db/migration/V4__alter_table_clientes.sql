@@ -1,1 +1,0 @@
-alter table clientes MODIFY COLUMN uf varchar(2);
