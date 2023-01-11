@@ -1,1 +1,0 @@
-alter table user add foreign key(tipo) references user_tipo(perfil_id);
