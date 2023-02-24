@@ -11,11 +11,11 @@ Frameworks: Spring Boot, React.
 
 TO-DO LIST:
 
-[x] Sistema de login e registro.
-[x] Token e autenticação.
-[x] Tela de busca.
-[] Tela de registro.
-[] Sistema de comentários.
-[] Tela das receitas.
-[] Revisar atributos e requisitos.
-[] Tela de login.
+- [x] Sistema de login e registro.
+- [x] Token e autenticação.
+- [x] Tela de busca.
+- [ ] Tela de registro.
+- [ ] Sistema de comentários.
+- [ ] Tela das receitas.
+- [ ] Revisar atributos e requisitos.
+- [ ] Tela de login.
