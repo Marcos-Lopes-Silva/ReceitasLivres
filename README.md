@@ -3,7 +3,9 @@
 `EM DESENVOLVIMENTO`
 
 Linguagens utilizadas: Java, TypeScript.
+
 Marcação: CSS, HTML.
+
 Frameworks: Spring Boot, React.
 
 
