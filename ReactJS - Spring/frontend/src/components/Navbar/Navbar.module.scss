@@ -2,6 +2,7 @@
 @import "styles/breakpoints";
 
 .nav {
+    display: flex;
     padding: 20px $padding-horizontal;
 
     @media (max-width: $desktop_xsm) {
@@ -15,30 +16,49 @@
     @media (min-width: $desktop_sm) and (max-width: $desktop_md) {
         padding: 20px $padding-horizontal-md;
     }
+
+    &__list {
+        align-items: center;
+        display: flex;
+    }
+
+    &__link {
+        list-style-type: none;
+        padding: 0 20px;
+
+        a {
+            color: $dark;
+            cursor: pointer;
+            font-size: 28px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: .2s ease;
+
+            &:hover {
+                color: $dark-grey;
+            }
+        }
+    }
 }
 
-.lista {
-    list-style: none;
-    display: flex;
-    align-items: center;
-}
+.sidebutton {
 
-.item {
-    padding-right: 100px;
-    font-size: 35px;
-}
 
-.itemLogin {
-    padding-right: 670px;
-    font-size: 35px;
-}
+    list-style-type: none;
+    position: relative;
+    padding-left: 42px;
+    left: 900px;
 
-.login {
+    a {
+        color: $dark;
+        cursor: pointer;
+        font-size: 17px;
+        font-weight: 580;
+        text-decoration: none;
+        transition: .2s ease;
 
-    padding-right: 50px;
-}
-
-.sign {
-    padding-left: 0;
-
+        &:hover {
+            color: $dark-grey;
+        }
+    }
 }

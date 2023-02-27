@@ -1,34 +1,50 @@
-import logo from "assets/logo.png"
-import Container from "components/Container"
-import styles from "./Navbar.module.scss"
+import logo from 'assets/logo.png';
+import { Link } from 'react-router-dom';
+import styles from './Navbar.module.scss';
 
-interface IProps {
-    children?: React.ReactNode
-}
 
-export default function Navbar(props: IProps) {
-    return (
-        <nav className={styles.nav}>
+export default function Navbar() {
+  const rotas = [{
+    label: 'Home',
+    to: '/'
+  },
+  {
+    label: 'Receitas',
+    to: '/receitas'
+  },
+  {
+    label: 'Sobre',
+    to: '/sobre'
+  }
+  ];
+  const rotas2 = [{
+    label: 'Login',
+    to: '/login'
+  },
+  {
+    label: 'Registrar-se',
+    to: '/u/cadastrar'
+  }];
 
-            <Container>
-                <ul className={styles.lista}>
-                    <li className={styles.item}><img src={logo} alt="logo" /></li>
-                    <li className={styles.item}>
-                        Home
-                    </li>
-                    <li className={styles.itemLogin}>
-                        Receitas
-                    </li>
-
-                    <li className={styles.login}>
-                        Login
-                    </li>
-                    <li className={styles.sign}>
-                        Registrar-se
-                    </li>
-                </ul>
-            </Container>
-            {props.children}
-        </nav>
-    )
+  return (
+    <nav className={styles.nav}>
+      <img src={logo} />
+      <ul className={styles.nav__list}>
+        {rotas.map((rota, index) => (
+          <li key={index} className={styles.nav__link}>
+            <Link to={rota.to}>
+              {rota.label}
+            </Link>
+          </li>
+        ))}
+        {rotas2.map((rota, index) => (
+          <li key={index} className={styles.sidebutton}>
+            <Link to={rota.to}>
+              {rota.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
 }

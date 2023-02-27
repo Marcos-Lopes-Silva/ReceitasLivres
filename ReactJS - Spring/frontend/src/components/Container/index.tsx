@@ -5,9 +5,9 @@ interface IProps {
 }
 
 export default function Container(props: IProps) {
-    return (
-        <div>
-            {props.children}
-        </div>
-    )
+  return (
+    <div>
+      {props.children}
+    </div>
+  );
 }

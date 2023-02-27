@@ -1,16 +1,14 @@
-import "normalize.css";
+import 'normalize.css';
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import './index.css';
-import Receitas from './pages/Receitas';
+import Router from './routes';
 
 
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
+ReactDOM.render(
   <React.StrictMode>
-    <Receitas />
-  </React.StrictMode>
+    <Router />
+  </React.StrictMode>,
+  document.getElementById('root')
 );
