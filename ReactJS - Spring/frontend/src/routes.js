@@ -20,11 +20,12 @@ export default function AppRouter() {
           <Route path='/' element={<PaginaPadrao />} >
             <Route index element={<Home />} />
             <Route path='receitas' element={<Receitas />} />
-            <Route path='login' element={<Login />} />
+
             <Route path='receita' element={<Receita />} />
           </Route>
           <Route path='/u'>
             <Route path='cadastrar' element={<Cadastro />} />
+            <Route path='login' element={<Login />} />
           </Route>
           <Route path='*' element={<NotFound />} />
         </Routes>

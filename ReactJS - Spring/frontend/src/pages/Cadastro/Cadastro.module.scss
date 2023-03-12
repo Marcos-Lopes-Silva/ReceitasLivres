@@ -1,0 +1,48 @@
+@import "styles/variaveis";
+@import "styles/breakpoints";
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;400&display=swap');
+
+.cadastro {
+    padding: 25px $padding-horizontal;
+    margin-left: 250px;
+    display: grid;
+    grid-template-columns: 500px auto;
+    grid-template-areas: "pessoais" "endereco" "button";
+    gap: 10px;
+
+
+    &__fieldset {
+        border: 0;
+        position: static;
+    }
+
+
+    &__a {
+        font-size: 20px;
+        font-weight: bold;
+        margin-left: -20px;
+    }
+
+    p {
+        font-family: "Noto Sans", sans-serif;
+    }
+
+    &__div {
+        font-family: "Noto Sans", sans-serif;
+
+    }
+
+    &__div input {
+        border: 0px solid;
+        border-bottom: 2px solid $red;
+        background-color: #f6f6f6;
+    }
+
+}
+
+.button {
+
+    height: 35px;
+    width: 120px;
+}

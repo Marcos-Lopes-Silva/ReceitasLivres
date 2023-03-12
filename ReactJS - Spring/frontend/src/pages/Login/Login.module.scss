@@ -1,0 +1,26 @@
+@import "styles/variaveis";
+@import "styles/breakpoints";
+
+.section {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    min-height: 100%;
+    width: 100%;
+}
+
+.formbox {
+    position: relative;
+    width: 400px;
+    height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+h2 {
+    font-size: 2em;
+    text-align: center;
+}

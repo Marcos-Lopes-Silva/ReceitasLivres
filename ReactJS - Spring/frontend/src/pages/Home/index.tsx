@@ -1,6 +1,7 @@
 import cardapio from 'data/cardapio.json';
 import stylesTema from 'styles/Tema.module.scss';
 import styles from './Home.module.scss';
+
 export default function Home() {
   let pratosSemana = [...cardapio];
   pratosSemana = pratosSemana.sort(() => 0.5 - Math.random()).splice(0, 5);

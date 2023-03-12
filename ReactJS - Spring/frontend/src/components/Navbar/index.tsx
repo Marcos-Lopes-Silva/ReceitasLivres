@@ -13,13 +13,13 @@ export default function Navbar() {
     to: '/receitas'
   },
   {
-    label: 'Sobre',
-    to: '/sobre'
+    label: 'Receita',
+    to: '/receita'
   }
   ];
   const rotas2 = [{
     label: 'Login',
-    to: '/login'
+    to: '/u/login'
   },
   {
     label: 'Registrar-se',
