@@ -1,6 +1,6 @@
-import cardapio from 'data/cardapio.json';
+import Axios from 'axios';
 import { useEffect, useState } from 'react';
-import Item from './Item';
+import Item, { Receitas } from './Item';
 import styles from './Itens.module.scss';
 
 interface IProps {
@@ -9,8 +9,10 @@ interface IProps {
   ordenador: string;
 
 }
-export default function Itens(props: IProps) {
-  const [lista, setLista] = useState(cardapio);
+
+
+export default function Itens(props: IProps, receitas: Receitas) {
+  const [lista, setLista] = useState([]);
   const { busca, filtro, ordenador } = props;
 
   function testaBusca(title: string) {
@@ -23,39 +25,50 @@ export default function Itens(props: IProps) {
     return true;
   }
 
-  function ordenar(novaLista: typeof cardapio) {
+  function ordenar(novaLista: typeof receitas) {
     switch (ordenador) {
-    case 'porcao':
-      return novaLista.sort((a, b) => a.size > b.size ? 1 : -1);
-    case 'qtd_pessoas':
-      return novaLista.sort((a, b) => a.serving > b.serving ? 1 : -1);
-    case 'preco':
-      return novaLista.sort((a, b) => a.price > b.price ? 1 : -1);
-    default:
-      return novaLista;
+      case 'porcao':
+        return novaLista.sort ? ((a: any, b: any) => a.size > b.size ? 1 : -1) : Function;
+      case 'qtd_pessoas':
+        return novaLista.sort ? ((a: any, b: any) => a.serving > b.serving ? 1 : -1) : Function;
+      case 'preco':
+        return novaLista.sort ? ((a: any, b: any) => a.price > b.price ? 1 : -1) : Function;
+      default:
+        return novaLista;
     }
   }
 
+  const fetchData = async () => {
+    const { data } = await Axios.get('http://localhost:8080/receitas');
+
+    const receitas = data;
+    receitas.filter((item: Receitas) => testaBusca(item.titulo) && testaFiltro(item.category.id))
+    setLista(receitas);
+    console.log(receitas);
+  };
+
   useEffect(() => {
-    const novaLista = cardapio.filter(item => testaBusca(item.title) && testaFiltro(item.category.id));
-    setLista(ordenar(novaLista));
+    fetchData();
   }, [busca, filtro, ordenador]);
 
   return (
     <div className={styles.itens}>
-      {lista.map((item) => (
+      {lista.map((item: Receitas) => (
         <Item
           key={item.id}
           id={item.id}
-          title={item.title}
-          description={item.description}
-          photo={item.photo}
+          titulo={item.titulo}
+          ingredientes={item.ingredientes}
+          modoPreparo={item.modoPreparo}
+          descricao={item.descricao}
+          urlImage={item.urlImage}
           size={item.size}
-          serving={item.serving}
+          usuario={item.usuario}
+          serve={item.serve}
           category={
             item.category
           }
-          price={item.price}
+
         />
       ))}
     </div>

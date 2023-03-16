@@ -32,6 +32,8 @@ public class Receitas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String titulo;
+
     @Column(name = "modopreparo")
     private String modoPreparo;
     private String ingredientes;
@@ -39,6 +41,11 @@ public class Receitas {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+
+    private int porcoes;
+
+    private String urlImage;
+    private String size;
 
     public Receitas(@Valid DadosCadastroReceitas dados) {
         this.modoPreparo = dados.modoPreparo();

@@ -1,19 +1,36 @@
-import itens from 'data/cardapio.json';
 import styles from './Item.module.scss';
 
-type Props = typeof itens[0]
 
-export default function Item(props: Props) {
-  const { title, description, category, size, serving, photo } = props;
+export interface Receitas {
+  sort?(arg0: (a: any, b: any) => 1 | -1): Function;
+
+  id: number;
+  titulo: string;
+  modoPreparo: string;
+  ingredientes: string;
+  size: number;
+  usuario: number;
+  urlImage: string;
+  descricao: string;
+  category: {
+    id: number;
+    label: string
+  }
+  serve: number
+}
+
+export default function Item(props: Receitas) {
+
+  const { titulo, modoPreparo, ingredientes, size, usuario, urlImage, descricao, category, serve } = props;
   return (
     <div className={styles.item}>
       <div className={styles.item__imagem}>
-        <img src={photo} alt={title} />
+        <img src={urlImage} alt={titulo} />
       </div>
       <div className={styles.item__descricao}>
         <div className={styles.item__titulo}>
-          <h2>{title}</h2>
-          <p>{description}</p>
+          <h2>{titulo}</h2>
+          <p>{descricao}</p>
         </div>
         <div className={styles.item__tags}>
           <div className={`${styles.item__tipo} ${styles[`item__tipo__${category.label.toLowerCase()}`]}`}>
@@ -23,10 +40,11 @@ export default function Item(props: Props) {
             {size}g
           </div>
           <div className={styles.item__qtdpessoas}>
-            Serve {serving} pessoa{serving === 1 ? '' : 's'}
+            Serve {serve} pessoa{serve === 1 ? '' : 's'}
           </div>
         </div>
       </div>
     </div>
   );
 }
+

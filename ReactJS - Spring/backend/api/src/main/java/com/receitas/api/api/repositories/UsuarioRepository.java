@@ -12,5 +12,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     UserDetails findByLogin(String subject);
 
-    Page<DadosListagemUser> findAllById(Pageable pageable);
+    Page<DadosListagemUser> findAllByAtivoTrue(Pageable pageable);
 }
