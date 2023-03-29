@@ -3,8 +3,9 @@
 
 $massas: #d73b3b;
 $carnes: #30201e;
-$combos: #e6c864;
+$sobremesas: #e6c864;
 $veganos: #80aa40;
+$nc: #1c1b22;
 
 .item {
     display: flex;
@@ -13,6 +14,7 @@ $veganos: #80aa40;
 
     &__imagem {
         min-width: 240px;
+        cursor: pointer;
 
         @media (max-width: $desktop_xsm) {
             width: 100%;
@@ -40,7 +42,15 @@ $veganos: #80aa40;
     }
 
     &__titulo {
-        h2 {
+
+        cursor: pointer;
+
+        a {
+            text-decoration: none;
+            color: $dark;
+        }
+
+        &__h2 {
             font-size: 2rem;
             font-weight: bold;
             margin-bottom: 20px;
@@ -50,6 +60,7 @@ $veganos: #80aa40;
             color: $dark-grey;
             font-size: 1.3rem;
             font-weight: 600;
+
             max-width: 600px;
             margin-bottom: 20px;
         }
@@ -84,6 +95,11 @@ $veganos: #80aa40;
         justify-content: center;
         padding: 10px 30px;
 
+        &__nc {
+            background-color: $nc;
+            color: white;
+        }
+
         &__massas {
             background-color: $massas;
             color: white;
@@ -94,8 +110,8 @@ $veganos: #80aa40;
             color: white;
         }
 
-        &__combos {
-            background-color: $combos;
+        &__sobremesas {
+            background-color: $sobremesas;
         }
 
         &__veganos {

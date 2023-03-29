@@ -14,7 +14,7 @@ export default function Navbar() {
   },
   {
     label: 'Receita',
-    to: '/receita'
+    to: '/receita/nova'
   }
   ];
   const rotas2 = [{

@@ -8,7 +8,7 @@ export default function Login() {
     <section className={styles.section}>
       <div className={styles.formbox}>
         <div className="form-value">
-          <form action="">
+          <form action="" className={styles.form}>
             <h2>Login</h2>
             <div className="inputbox">
               <CgMail size={20} color="#4C4D5E" />

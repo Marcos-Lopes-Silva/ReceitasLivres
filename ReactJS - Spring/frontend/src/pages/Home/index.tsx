@@ -1,9 +1,27 @@
-import cardapio from 'data/cardapio.json';
+import Axios from 'axios';
+import { useEffect, useState } from 'react';
 import stylesTema from 'styles/Tema.module.scss';
 import styles from './Home.module.scss';
+import { Receita } from 'types/TReceita';
 
 export default function Home() {
-  let pratosSemana = [...cardapio];
+
+  const [lista, setLista] = useState<Receita[]>([]);
+
+  const fetchData = async () => {
+    const { data } = await Axios.get('http://localhost:8080/receitas');
+
+    const receitas = data.content;
+
+    setLista(receitas);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  console.log(lista);
+  let pratosSemana = [...lista];
   pratosSemana = pratosSemana.sort(() => 0.5 - Math.random()).splice(0, 5);
 
   return (
@@ -13,7 +31,7 @@ export default function Home() {
         {pratosSemana.map(item => (
           <div key={item.id} className={styles.recomendado}>
             <div className={styles.recomendado_imagem}>
-              <img src={item.photo} alt={item.title} />
+              <img src={item.urlImage} alt={item.titulo} />
             </div>
             <button className={styles.recomendado__botao}>
               Ver mais

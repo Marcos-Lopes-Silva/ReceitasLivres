@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.receitas.api.api.dto.DadosCadastroUsuario;
 import com.receitas.api.api.dto.DadosEditarUsuario;
 
@@ -53,6 +54,7 @@ public class Usuario implements UserDetails {
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.MERGE, orphanRemoval = true, fetch = FetchType.EAGER)
     @Column(name = "receitas_id")
+    @JsonBackReference
     private List<Receitas> receitas = new ArrayList<Receitas>();
 
     public Usuario(DadosCadastroUsuario user) {

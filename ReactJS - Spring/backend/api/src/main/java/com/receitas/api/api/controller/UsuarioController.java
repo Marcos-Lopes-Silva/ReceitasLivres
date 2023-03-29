@@ -52,7 +52,10 @@ public class UsuarioController {
     @GetMapping("/listar")
     public ResponseEntity<Page<DadosListagemUser>> listar(
             @PageableDefault(size = 10, sort = "nome") Pageable paginacao) {
-        return null;
+
+        var lista = usuarioRepository.findAllByAtivoTrue(paginacao);
+
+        return ResponseEntity.ok(lista);
     }
 
     @PutMapping

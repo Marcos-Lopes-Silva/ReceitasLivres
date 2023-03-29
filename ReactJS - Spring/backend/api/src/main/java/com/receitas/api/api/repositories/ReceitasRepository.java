@@ -6,4 +6,5 @@ import com.receitas.api.api.entities.Receitas;
 
 public interface ReceitasRepository extends JpaRepository<Receitas, Long> {
 
+    // Page<DadosListagemReceitas> findAll(Pageable paginacao);
 }

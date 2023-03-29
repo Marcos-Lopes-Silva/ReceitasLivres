@@ -5,7 +5,8 @@ import Cadastro from 'pages/Cadastro';
 import Home from 'pages/Home';
 import Login from 'pages/Login';
 import NotFound from 'pages/NotFound';
-import Receita from 'pages/Receita';
+import NovaReceita from 'pages/NovaReceita';
+import Receita from 'pages/ReceitaP';
 import Receitas from 'pages/Receitas';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -20,8 +21,8 @@ export default function AppRouter() {
           <Route path='/' element={<PaginaPadrao />} >
             <Route index element={<Home />} />
             <Route path='receitas' element={<Receitas />} />
-
-            <Route path='receita' element={<Receita />} />
+            <Route path='receita/nova' element={<NovaReceita />} />
+            <Route path='receita/:id' element={<Receita />} />
           </Route>
           <Route path='/u'>
             <Route path='cadastrar' element={<Cadastro />} />

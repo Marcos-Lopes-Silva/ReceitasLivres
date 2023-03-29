@@ -38,18 +38,31 @@ public class Receitas {
     private String modoPreparo;
     private String ingredientes;
 
+    private String descricao;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    private int porcoes;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
 
     private String urlImage;
     private String size;
 
+    private int serve;
+
     public Receitas(@Valid DadosCadastroReceitas dados) {
+        this.titulo = dados.titulo();
         this.modoPreparo = dados.modoPreparo();
         this.ingredientes = dados.ingredientes();
+        this.descricao = dados.descricao();
+        this.categoria = dados.categoria();
+        this.usuario = dados.usuario();
+        this.serve = dados.serve();
+        this.urlImage = dados.urlImage();
+        this.size = dados.size();
     }
 
     @Override

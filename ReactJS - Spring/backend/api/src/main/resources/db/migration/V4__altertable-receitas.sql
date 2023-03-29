@@ -1,0 +1,1 @@
+alter table receitas add url_image varchar(500);

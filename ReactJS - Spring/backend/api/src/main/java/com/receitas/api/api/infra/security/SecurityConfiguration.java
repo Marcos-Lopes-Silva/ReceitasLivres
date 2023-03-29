@@ -30,6 +30,9 @@ public class SecurityConfiguration {
                 .and().authorizeHttpRequests()
                 .requestMatchers(HttpMethod.POST, "/login").permitAll()
                 .requestMatchers(HttpMethod.POST, "/u/cadastrar").permitAll()
+                .requestMatchers(HttpMethod.GET, "/receitas").permitAll()
+                .requestMatchers(HttpMethod.GET, "/categorias/*").permitAll()
+                .requestMatchers(HttpMethod.GET, "/receitas/{id}").permitAll()
                 .anyRequest().authenticated()
                 .and().addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
