@@ -1,10 +1,10 @@
 import styles from './Item.module.scss';
-import { Receita } from 'types/TReceita';
+import { IReceita } from 'types/types';
 import { Link } from 'react-router-dom';
 
 
 
-export default function Item(props: Receita) {
+export default function Item(props: IReceita) {
 
 
   const { titulo, size, urlImage, descricao, categoria, serve } = props;

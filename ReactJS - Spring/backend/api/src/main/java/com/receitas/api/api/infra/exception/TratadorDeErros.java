@@ -2,6 +2,7 @@ package com.receitas.api.api.infra.exception;
 
 import java.util.List;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -28,6 +29,11 @@ public class TratadorDeErros {
         public DadosErroValidacao(FieldError erro) {
             this(erro.getField(), erro.getDefaultMessage());
         }
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<String> tratarErro401() {
+        return ResponseEntity.status(Response.SC_UNAUTHORIZED).build();
     }
 
 }

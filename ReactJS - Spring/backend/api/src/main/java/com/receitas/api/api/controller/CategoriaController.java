@@ -42,7 +42,7 @@ public class CategoriaController {
         return ResponseEntity.created(uri).body(new DadosCategoria(categoria));
     }
 
-    @GetMapping("/listar")
+    @GetMapping()
     public ResponseEntity<List<DadosCategoria>> listar() {
 
         var lista = categoriaRepository.findAll();

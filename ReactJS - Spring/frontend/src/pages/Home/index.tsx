@@ -2,11 +2,11 @@ import Axios from 'axios';
 import { useEffect, useState } from 'react';
 import stylesTema from 'styles/Tema.module.scss';
 import styles from './Home.module.scss';
-import { Receita } from 'types/TReceita';
+import { IReceita } from 'types/types';
 
 export default function Home() {
 
-  const [lista, setLista] = useState<Receita[]>([]);
+  const [lista, setLista] = useState<IReceita[]>([]);
 
   const fetchData = async () => {
     const { data } = await Axios.get('http://localhost:8080/receitas');
@@ -20,7 +20,7 @@ export default function Home() {
     fetchData();
   }, []);
 
-  console.log(lista);
+
   let pratosSemana = [...lista];
   pratosSemana = pratosSemana.sort(() => 0.5 - Math.random()).splice(0, 5);
 

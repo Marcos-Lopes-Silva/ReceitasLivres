@@ -1,7 +1,7 @@
-import Axios from 'axios';
-import { useState } from 'react';
-import { Categoria } from 'types/TCategoria';
+import { useEffect, useState } from 'react';
+import { Categoria } from 'types/types';
 import styles from './Filtros.module.scss';
+import { getCategorias } from 'context/AuthProvider/utils';
 
 
 
@@ -17,18 +17,19 @@ export default function Filtros({ filtro, setFiltro }: Props) {
 
   const fetchData = async () => {
 
-    const { data } = await Axios.get('http://localhost:8080/categorias');
-    console.log(data);
+    const data = getCategorias();
     const filtros = data;
-    console.log(filtros);
-    setFiltros(filtros);
-    selecionarFiltro(filtros);
+    setFiltros(await filtros);
   };
 
   function selecionarFiltro(opcao: Categoria) {
     if (filtro === opcao.id) return setFiltro(null);
     return setFiltro(opcao.id);
   }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div className={styles.filtros}>

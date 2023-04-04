@@ -1,40 +1,45 @@
 import Axios from 'axios';
 import styles from './Receita.module.scss';
 import { useParams } from 'react-router-dom';
-import { Receita } from 'types/TReceita';
+import { IReceita } from 'types/types';
 import { useState, useEffect } from 'react';
-import { stringify } from 'querystring';
+import { getReceitas } from 'context/AuthProvider/utils';
 
 export default function ReceitaP() {
 
   const { id } = useParams();
-  const [receita, setReceita] = useState<Receita>();
+  const [receita, setReceita] = useState<IReceita>();
   const [ingredientes, setIngredientes] = useState([]);
 
-
   useEffect(() => {
+
     fetchData();
+
   }, [id]);
 
+
+  const fetchData = async () => {
+    const data = getReceitas(id);
+    console.log(data);
+    setReceita(await data);
+  };
+
+
+
+
   function listIngredientes(str: string) {
-    const regex = '\w+[^~][^;]/g';
-    array2: [];
-    var array = str.match(regex);
+    const regex = '+[^~][^;]/g';
+    const array = str.match(regex);
     console.log(array);
     array?.map((valor) => {
       valor = valor.replace(';', '');
-      // array2 = array?.push(valor);
+      array?.push(valor);
     });
-
+    console.log(array);
 
   }
 
-  const fetchData = async () => {
-    const { data } = await Axios.get(`http://localhost:8080/receitas/${id}`);
-    const receitas = data;
-    console.log(receitas);
-    setReceita(receitas);
-  };
+
 
   return (
     <div className={styles.cont}>

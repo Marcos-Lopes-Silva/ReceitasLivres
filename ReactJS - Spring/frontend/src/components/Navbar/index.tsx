@@ -1,9 +1,19 @@
 import logo from 'assets/logo.png';
 import { Link } from 'react-router-dom';
 import styles from './Navbar.module.scss';
+import { useEffect, useState } from 'react';
+import { useAuth } from 'context/AuthProvider/useAuth';
 
+interface IRota {
+  label: string;
+  to: string;
+}
 
 export default function Navbar() {
+
+  const auth = useAuth();
+  const [rotas2, setRotas2] = useState<IRota[]>([]);
+
   const rotas = [{
     label: 'Home',
     to: '/'
@@ -17,14 +27,30 @@ export default function Navbar() {
     to: '/receita/nova'
   }
   ];
-  const rotas2 = [{
-    label: 'Login',
-    to: '/u/login'
-  },
-  {
-    label: 'Registrar-se',
-    to: '/u/cadastrar'
-  }];
+
+
+
+
+
+
+  useEffect(() => {
+    if (auth.login) {
+      const rota: IRota[] = [];
+      setRotas2(rota);
+    } else {
+      const rota = [{
+        label: 'Login',
+        to: '/login'
+      },
+      {
+        label: 'Cadastro',
+        to: '/cadastro'
+      }];
+      setRotas2(rota);
+    }
+  }, []);
+
+
 
   return (
     <nav className={styles.nav}>

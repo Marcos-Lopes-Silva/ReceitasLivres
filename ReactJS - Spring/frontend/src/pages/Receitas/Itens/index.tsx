@@ -1,8 +1,8 @@
-import Axios from 'axios';
 import { useEffect, useState } from 'react';
 import Item from './Item';
-import { Receita } from 'types/TReceita';
+import { IReceita } from 'types/types';
 import styles from './Itens.module.scss';
+import { getReceitas } from 'context/AuthProvider/utils';
 
 interface IProps {
   busca: string;
@@ -12,7 +12,7 @@ interface IProps {
 }
 
 
-export default function Itens(props: IProps, receitas: Receita) {
+export default function Itens(props: IProps, receitas: IReceita[]) {
   const [lista, setLista] = useState([]);
   const { busca, filtro, ordenador } = props;
 
@@ -26,34 +26,44 @@ export default function Itens(props: IProps, receitas: Receita) {
     return true;
   }
 
-  function ordenar(novaLista: typeof receitas) {
+  function ordenar(novaLista: IReceita[] = []) {
     switch (ordenador) {
       case 'porcao':
-        return novaLista.sort ? ((a: any, b: any) => a.size > b.size ? 1 : -1) : Function;
+        return novaLista.sort((a: any, b: any) => a.size > b.size ? 1 : -1);
       case 'qtd_pessoas':
-        return novaLista.sort ? ((a: any, b: any) => a.serving > b.serving ? 1 : -1) : Function;
+        return novaLista.sort((a: any, b: any) => a.serve > b.serve ? 1 : -1);
       case 'nome':
-        return novaLista.sort ? ((a: any, b: any) => a.titulo > b.titulo ? 1 : -1) : Function;
+        return novaLista.sort((a: any, b: any) => a.titulo > b.titulo ? 1 : -1);
       default:
         return novaLista;
     }
   }
 
   const fetchData = async () => {
-    const { data } = await Axios.get('http://localhost:8080/receitas');
-    const receitas = data.content;
-    receitas.filter((item: Receita) => testaBusca(item.titulo) && testaFiltro(item.categoria.id));
-    setLista(receitas);
+    const data = getReceitas();
+    const receitas = data;
+    receitas.then((data) => data.filter((item: IReceita) => testaBusca(item.titulo) && testaFiltro(item.categoria.id))).then(data => {
+      const arr: IReceita[] = [];
+      data.map((item: IReceita) => {
+        arr.push(item);
+      });
+
+      setLista(data);
+    }
+
+    );
+
 
   };
 
   useEffect(() => {
     fetchData();
+
   }, [busca, filtro, ordenador]);
 
   return (
     <div className={styles.itens}>
-      {lista.map((item: Receita) => (
+      {lista.map((item: IReceita) => (
         <Item
           key={item.id}
           id={item.id}

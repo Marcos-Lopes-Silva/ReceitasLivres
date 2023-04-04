@@ -6,7 +6,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import com.receitas.api.api.dto.DadosAuthentication;
@@ -17,7 +17,6 @@ import com.receitas.api.api.infra.sevices.TokenService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/login")
 public class AuthenticationController {
 
     @Autowired
@@ -26,7 +25,7 @@ public class AuthenticationController {
     @Autowired
     private TokenService tokenService;
 
-    @PostMapping
+    @PostMapping("/login")
     public ResponseEntity<DadosTokenJWT> login(@RequestBody @Valid DadosAuthentication dados) {
         var authenticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
         var authentication = manager.authenticate(authenticationToken);

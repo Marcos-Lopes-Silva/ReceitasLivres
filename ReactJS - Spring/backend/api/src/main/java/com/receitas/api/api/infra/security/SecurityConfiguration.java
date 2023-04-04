@@ -23,7 +23,7 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf()
+        return http.cors().and().csrf()
                 .disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -31,7 +31,7 @@ public class SecurityConfiguration {
                 .requestMatchers(HttpMethod.POST, "/login").permitAll()
                 .requestMatchers(HttpMethod.POST, "/u/cadastrar").permitAll()
                 .requestMatchers(HttpMethod.GET, "/receitas").permitAll()
-                .requestMatchers(HttpMethod.GET, "/categorias/*").permitAll()
+                .requestMatchers(HttpMethod.GET, "/categorias").permitAll()
                 .requestMatchers(HttpMethod.GET, "/receitas/{id}").permitAll()
                 .anyRequest().authenticated()
                 .and().addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
