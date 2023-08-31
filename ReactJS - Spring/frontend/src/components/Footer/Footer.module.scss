@@ -3,9 +3,12 @@
 
 .footer {
     background-color: $red;
-    display: flex;
-    justify-content: flex-end;
-    padding: 10px $padding-horizontal;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 1rem;    
+    text-align: center;
+    line-height: 100px;
 
     @media (max-width: $desktop_xsm) {
         padding: 10px $padding-horizontal-mobile;

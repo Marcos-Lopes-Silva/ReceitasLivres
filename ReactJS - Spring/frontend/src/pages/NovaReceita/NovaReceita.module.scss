@@ -1,0 +1,136 @@
+@import "styles/variaveis";
+@import "styles/breakpoints";
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;400&display=swap');
+
+
+
+.forms {
+
+    display: flexbox;
+    height: 100%;
+    width: 100%;
+    max-width: calc(100% - 20px);
+
+    &__button {
+        cursor: pointer;
+        background-color: $red;
+        color: #ffffff;
+        border: 0;
+        border-radius: 5px;
+        justify-self: center;
+        position: relative;
+        margin-top: 25px;
+        padding: 10px 20px;
+        left: 0;
+        width: 100%;
+    }
+
+    &__inputbox {
+        position: relative;
+        margin: 50px 0;
+    }
+
+    &__inputbox label {
+        font-family: 'Noto Sans', sans-serif;
+        position: absolute;
+        bottom: 50%;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    &__inputbox input {
+        font-family: 'Noto Sans', sans-serif;
+        height: 30px;
+        bottom: -25px;
+       position: relative;
+        width: 50%;
+    }
+
+    &__inputbox textarea { 
+        bottom: -30px;
+       position: relative;
+        width: 50%;
+    }
+
+    &__inputbox button {
+        bottom: -25px;
+        position: absolute;
+    }
+
+    &__inputbox input[type="number"] {
+        font-family: 'Noto Sans', sans-serif;
+        position: relative;
+        width: 20%;
+        top: 0;
+    }
+
+    &__inputlist { 
+        flex: 2;
+    }
+
+    &__inputlist label {
+        font-family: 'Noto Sans', sans-serif;
+        position: relative;
+        bottom: 68%;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    &__inputlist input {
+        font-family: 'Noto Sans', sans-serif;
+        margin-top: 20px;
+        height: 35px;
+        width: 100%;
+        padding: 7px;
+        outline: none;
+        border-radius: 5px;
+        border: 1px solid rgb(220, 220, 220);
+    }
+
+    &__column {
+        display: flex;
+        flex-direction: column;
+        margin: 0 5px 0.5rem 0;
+        width: 50%;
+    }
+
+    &__column button {
+        background: none;
+        outline: none;
+        cursor: pointer;
+        font-weight: 500;
+        border-radius: 2px;
+        padding: 5px 10px;
+    }
+
+    &__categorias {
+        display: flex;
+        flex-direction: column;
+        margin: 0 5px 0.5rem 0;
+        width: 50%;
+    }
+
+    &__categorias label {
+        position: relative;
+        font-family: 'Noto Sans', sans-serif;
+        bottom: 68%;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    
+}
+
+.forms h2 {
+    font-family: 'Noto Sans', sans-serif;
+    outline: none;
+    font-size: 2em;
+    text-align: center;
+    padding-top: 20px;
+    margin-bottom: 2em;
+}
+.forms hr {
+    margin-top: -40px;
+    border: 1px solid $red;
+}

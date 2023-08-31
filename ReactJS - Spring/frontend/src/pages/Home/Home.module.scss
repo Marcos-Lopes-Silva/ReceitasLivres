@@ -4,7 +4,7 @@
 .recomendados {
     border-radius: 2px;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 30px;
     justify-content: space-between;
 }
@@ -13,6 +13,7 @@
     &__imagem {
         width: 300px;
         margin-bottom: 10px;
+        
 
         img {
             border-radius: 8px;

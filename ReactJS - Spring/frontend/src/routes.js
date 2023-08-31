@@ -7,8 +7,9 @@ import Home from 'pages/Home';
 import Login from 'pages/Login';
 import NotFound from 'pages/NotFound';
 import NovaReceita from 'pages/NovaReceita';
-import Receita from 'pages/ReceitaP';
+import Receita from 'pages/Receita';
 import Receitas from 'pages/Receitas';
+import Logout from 'components/Logout';
 import { ProtectedLayout } from 'components/ProtectedLayout';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -24,14 +25,16 @@ export default function AppRouter() {
             <Route path='/' element={<PaginaPadrao />} >
               <Route index element={<Home />} />
               <Route path='receitas' element={<Receitas />} />
-              <Route path='/' element={<ProtectedLayout />}>
-                <Route path='receita/nova' element={<NovaReceita />} />
-              </Route>
               <Route path='receita/:id' element={<Receita />} />
+              <Route element={<ProtectedLayout />}>
+                  <Route path='/novareceita' element={<NovaReceita/>}/>
+              </Route> 
+            
             </Route>
             <Route path='/'>
               <Route path='cadastrar' element={<Cadastro />} />
               <Route path='login' element={<Login />} />
+              <Route path='logout' element={<Logout/>} />
             </Route>
             <Route path='*' element={<NotFound />} />
           </Routes>
@@ -39,5 +42,5 @@ export default function AppRouter() {
         </AuthProvider>
       </Router>
     </main>
-  );
+  )
 }

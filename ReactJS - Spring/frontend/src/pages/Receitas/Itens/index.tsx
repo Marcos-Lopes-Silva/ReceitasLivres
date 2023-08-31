@@ -12,7 +12,7 @@ interface IProps {
 }
 
 
-export default function Itens(props: IProps, receitas: IReceita[]) {
+export default function Itens(props: IProps) {
   const [lista, setLista] = useState([]);
   const { busca, filtro, ordenador } = props;
 
@@ -26,39 +26,28 @@ export default function Itens(props: IProps, receitas: IReceita[]) {
     return true;
   }
 
-  function ordenar(novaLista: IReceita[] = []) {
+  function ordenar(novaLista: never[] = []) {
     switch (ordenador) {
       case 'porcao':
-        return novaLista.sort((a: any, b: any) => a.size > b.size ? 1 : -1);
+        return novaLista.sort((a: IReceita, b: IReceita) => a.size > b.size ? 1 : -1);
       case 'qtd_pessoas':
-        return novaLista.sort((a: any, b: any) => a.serve > b.serve ? 1 : -1);
+        return novaLista.sort((a: IReceita, b: IReceita) => a.serve > b.serve ? 1 : -1);
       case 'nome':
-        return novaLista.sort((a: any, b: any) => a.titulo > b.titulo ? 1 : -1);
+        return novaLista.sort((a: IReceita, b: IReceita) => a.titulo > b.titulo ? 1 : -1);
       default:
         return novaLista;
     }
   }
 
   const fetchData = async () => {
-    const data = getReceitas();
-    const receitas = data;
-    receitas.then((data) => data.filter((item: IReceita) => testaBusca(item.titulo) && testaFiltro(item.categoria.id))).then(data => {
-      const arr: IReceita[] = [];
-      data.map((item: IReceita) => {
-        arr.push(item);
-      });
-
-      setLista(data);
-    }
-
-    );
-
-
+    const data = await getReceitas();
+    const receitas = data.content;
+    const novaLista = receitas.filter((item: IReceita) => testaBusca(item.titulo) && testaFiltro(item.categoria.id));
+    setLista(ordenar(novaLista));
   };
 
   useEffect(() => {
     fetchData();
-
   }, [busca, filtro, ordenador]);
 
   return (

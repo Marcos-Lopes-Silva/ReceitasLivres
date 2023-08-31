@@ -27,6 +27,7 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
 
     function logout() {
         setUser(null);
+        setUserLocalStorage(null);
     }
 
 
@@ -35,5 +36,5 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
         <AuthContext.Provider value={{ ...user, authenticate, logout }}>
             {children};
         </AuthContext.Provider>
-    );
-};
+    )
+}

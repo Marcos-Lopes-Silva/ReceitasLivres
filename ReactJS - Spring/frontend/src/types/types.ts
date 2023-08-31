@@ -1,7 +1,7 @@
 export type IReceita = {
     sort?(arg0: (a: any, b: any) => 1 | -1): Function;
 
-    id: number;
+    id?: number;
     titulo: string;
     modoPreparo: string;
     ingredientes: string;
@@ -36,4 +36,18 @@ export interface IContext extends IUser {
 
 export interface IAuthProvider {
     children: JSX.Element;
+}
+
+export interface ISetReceita {
+    titulo: string;
+    modoPreparo: string;
+    ingredientes: string;
+    size: number;   
+    urlImage: string;
+    descricao: string;
+    categoria: {
+        id: number;
+        nome: string;
+    }
+    serve: number;
 }

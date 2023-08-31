@@ -1,5 +1,5 @@
 import { Api } from 'services/api';
-import { IUser } from 'types/types';
+import { IReceita, IUser } from 'types/types';
 
 export async function getReceitas(id?: string) {
     try {
@@ -10,7 +10,7 @@ export async function getReceitas(id?: string) {
         } else {
             const request = await Api.get('receitas');
 
-            return request.data.content;
+            return request.data;
         }
         // eslint-disable-next-line
     } catch (e: any) {
@@ -47,7 +47,10 @@ export async function getCategorias() {
 }
 
 export function setUserLocalStorage(user: IUser | null) {
-    localStorage.setItem('u', JSON.stringify(user));
+    if(user)
+        localStorage.setItem('u', JSON.stringify(user));
+    else
+        localStorage.removeItem('u');
 }
 
 export function getUserLocalStorage() {
@@ -65,6 +68,16 @@ export async function LoginRequest(login: string, senha: string) {
 
         return request.data;
 
+    } catch (error) {
+        return null;
+    }
+}
+
+export async function setReceita(params: IReceita) {
+    try {
+        const request = await Api.post('receitas/criar', params);
+
+        return request.data;
     } catch (error) {
         return null;
     }

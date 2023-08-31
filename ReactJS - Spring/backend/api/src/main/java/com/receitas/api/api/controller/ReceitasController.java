@@ -52,14 +52,13 @@ public class ReceitasController {
         if (receita.getCategoria() == null) {
             String id = "1";
             Categoria cat = categoriaRepository.getReferenceById(Long.parseLong(id));
-            System.out.println(cat.toString());
             receita.setCategoria(cat);
         }
 
-        System.out.println(receita.getCategoria());
+        
 
-        if (receita.getUrlImage().equals("")) {
-            receita.setUrlImage("/assets/pratos/prato_branco.png");
+        if (receita.getPhoto() == null) {
+            receita.setPhoto(null);
         }
 
         receitasRepository.save(receita);

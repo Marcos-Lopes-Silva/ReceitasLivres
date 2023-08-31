@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -47,8 +48,10 @@ public class Receitas {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    private FileReference photo;
 
-    private String urlImage;
     private String size;
 
     private int serve;
@@ -61,7 +64,7 @@ public class Receitas {
         this.categoria = dados.categoria();
         this.usuario = dados.usuario();
         this.serve = dados.serve();
-        this.urlImage = dados.urlImage();
+        this.photo = dados.photo();
         this.size = dados.size();
     }
 

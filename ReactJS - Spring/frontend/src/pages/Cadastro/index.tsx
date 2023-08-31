@@ -31,15 +31,15 @@ export default function Cadastro() {
         <p className={styles.cadastro__a}>Dados Pessoais</p>
         <div className={styles.cadastro__div}>
           <p>Nome</p>
-          <input type="text" id="" />
+          <input type="text" />
         </div>
         <div className={styles.cadastro__div}>
           <p>Email</p>
-          <input type="email" id="" />
+          <input type="email" />
         </div>
         <div className={styles.cadastro__div}>
           <p>Senha</p>
-          <input type="password" id="" />
+          <input type="password" />
         </div>
         <div className={styles.cadastro__div}>
           <p>Data de Nascimento</p>
@@ -50,11 +50,11 @@ export default function Cadastro() {
         <p className={styles.cadastro__a}>Endereço</p>
         <div className={styles.cadastro__div}>
           <p>Logradouro</p>
-          <input type="text" {...register('logradouro')} id="" />
+          <input type="text" {...register('logradouro')} />
         </div>
         <div className={styles.cadastro__div}>
           <p>Bairro</p>
-          <input type="text" {...register('bairro')} id="" />
+          <input type="text" {...register('bairro')} />
         </div>
         <div className={styles.cadastro__div}>
           <p>CEP</p>
@@ -70,7 +70,7 @@ export default function Cadastro() {
         </div>
         <div className={styles.cadastro__div}>
           <p>Complemento</p>
-          <input type="text" {...register('complemento')} id="" />
+          <input type="text" {...register('complemento')} />
         </div>
 
       </fieldset>

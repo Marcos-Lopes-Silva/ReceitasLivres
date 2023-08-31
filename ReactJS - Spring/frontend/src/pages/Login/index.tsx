@@ -1,15 +1,13 @@
 import { CgLock, CgMail } from 'react-icons/cg';
 import styles from './Login.module.scss';
 import { useAuth } from 'context/AuthProvider/useAuth';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useEffect } from 'react';
-import { getUserLocalStorage } from 'context/AuthProvider/utils';
 
 
 export default function Login() {
 
   const auth = useAuth();
-  const user = getUserLocalStorage();
   const navigate = useNavigate();
   const errorMessage = () => alert('Email ou senha incorretos');
 
@@ -36,38 +34,34 @@ export default function Login() {
   }
 
   useEffect(() => {
-    user ? navigate('/') : navigate('/login');
+    auth.login ? navigate('/') : navigate('/login');
   }, []);
 
   return (
 
-    <section className={styles.section}>
-      <div className={styles.formbox}>
-        <div className="form-value">
-          <form className={styles.form} onSubmit={handleLogin} >
+    <div className={styles.section}>
+      <div className={styles.section__formbox}>
+          <form onSubmit={handleLogin} >
             <h2>Login</h2>
-            <div className="inputbox">
-              <CgMail size={20} color="#4C4D5E" />
-
-              <input type="email" name='email' required />
-
+            <div className={styles.section__inputbox}>
+              <CgMail className={styles.section__icon} size={20} color="#4C4D5E" />
+              <input className={styles.section__input} type="email" name='email' required />
               <label htmlFor="">Email</label>
             </div>
-            <div className={styles.formbox__inputbox}>
-              <CgLock size={20} color="#4C4D5E" />
-
-              <input type="password" name='password' required />
-
+            <div className={styles.section__inputbox}>
+              <CgLock className={styles.section__icon} size={20} color="#4C4D5E" />
+              <input className={styles.section__input} type="password" name='password' required />
               <label htmlFor="">Senha</label>
             </div>
-            <div>
+            <div className={styles.section__rememberpass}>
               <label htmlFor=""><input type="checkbox" />Lembre de mim</label>
-              <a href="#">Esqueci minha senha</a>
+              <Link to={'/cadastrar'}>
+                Criar uma conta
+              </Link>
             </div>
             <button type='submit' >Log in</button>
           </form>
-        </div>
       </div>
-    </section>
+    </div>
   );
 }

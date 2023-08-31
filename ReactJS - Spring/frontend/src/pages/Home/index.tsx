@@ -1,15 +1,16 @@
-import Axios from 'axios';
 import { useEffect, useState } from 'react';
 import stylesTema from 'styles/Tema.module.scss';
 import styles from './Home.module.scss';
 import { IReceita } from 'types/types';
+import { getReceitas } from 'context/AuthProvider/utils';
+import { Link } from 'react-router-dom';
 
 export default function Home() {
 
   const [lista, setLista] = useState<IReceita[]>([]);
 
   const fetchData = async () => {
-    const { data } = await Axios.get('http://localhost:8080/receitas');
+    const data  = await getReceitas();
 
     const receitas = data.content;
 
@@ -33,12 +34,14 @@ export default function Home() {
             <div className={styles.recomendado_imagem}>
               <img src={item.urlImage} alt={item.titulo} />
             </div>
+            <Link to={`/receita/${item.id}`}>
             <button className={styles.recomendado__botao}>
               Ver mais
             </button>
+            </Link>
           </div>
         ))}
       </div>
     </section>
-  );
+  )
 }

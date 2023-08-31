@@ -1,13 +1,15 @@
 import { useAuth } from 'context/AuthProvider/useAuth';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
-export const ProtectedLayout = ({ children }: { children: JSX.Element }) => {
+export const ProtectedLayout = () => {
     const auth = useAuth();
     const location = useLocation();
 
-    if (!auth.login) {
-        return <Navigate to='/login' state={{ from: location }} replace />;
-    }
+    
 
-    return children;
+    return(
+        auth?.login 
+        ? <Outlet/>
+        : <Navigate to='/login' state={{ from: location }} replace />
+    )   
 };
