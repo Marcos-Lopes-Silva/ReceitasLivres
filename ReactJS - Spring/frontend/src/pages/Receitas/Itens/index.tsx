@@ -52,11 +52,11 @@ export default function Itens(props: IProps) {
 
   return (
     <div className={styles.itens}>
-      {lista.map((item: IReceita) => (
-        <Item
-          key={item.id}
-          id={item.id}
-          titulo={item.titulo}
+        {lista.map((item: IReceita) => (
+          <Item
+            key={item.id}
+            id={item.id}
+            titulo={item.titulo}
           ingredientes={item.ingredientes}
           modoPreparo={item.modoPreparo}
           descricao={item.descricao}

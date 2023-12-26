@@ -16,7 +16,6 @@ export default function Filtros({ filtro, setFiltro }: Props) {
   const [filtros, setFiltros] = useState([]);
 
   const fetchData = async () => {
-
     const data = getCategorias();
     const filtros = data;
     setFiltros(await filtros);

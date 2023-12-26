@@ -30,9 +30,9 @@ public class S3CloudStorageProvider implements CloudStorageProvider{
 
         var builder = AwsRequestOverrideConfiguration.builder();
 
-        if(fileReference.isPublicAccessible()) {
+        // if(fileReference.isPublicAccessible()) {
             builder.putRawQueryParameter("x-amz-acl", "public-read");
-        }
+        // }
 
         System.out.println(fileReference.getContentType());
 
@@ -42,7 +42,7 @@ public class S3CloudStorageProvider implements CloudStorageProvider{
         .contentLength(fileReference.getContentLength())
         .contentType(fileReference.getContentType())
         .contentLength(fileReference.getContentLength())
-        .acl(fileReference.isPublicAccessible() ? "public-read" : null)
+        .acl(fileReference.isPublicAccessible() ? "public-read" : "public-read")
         .overrideConfiguration(builder.build())
         .build();
         

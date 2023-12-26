@@ -37,5 +37,5 @@ export default function Ordenador({
         ))}
       </div>
     </button>
-  );
+  )
 }

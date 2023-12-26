@@ -41,7 +41,7 @@ public class CategoriaController {
         URI uri = builder.path("/categorias/{id}").buildAndExpand(categoria.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosCategoria(categoria));
     }
-
+    
     @GetMapping()
     public ResponseEntity<List<DadosCategoria>> listar() {
 

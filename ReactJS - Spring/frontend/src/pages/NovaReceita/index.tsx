@@ -57,6 +57,8 @@ export default function NovaReceita() {
         //setReceita(receita);
     };
 
+    
+
 
     return (
        <form className={styles.forms} onSubmit={forms}>
