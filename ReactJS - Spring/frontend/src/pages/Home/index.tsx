@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import stylesTema from 'styles/Tema.module.scss';
 import styles from './Home.module.scss';
 import { IReceita } from 'types/types';
-import { getReceitas } from 'context/AuthProvider/utils';
+import { Request } from 'context/AuthProvider/utils';
 import { Link } from 'react-router-dom';
 
 export default function Home() {
@@ -10,7 +10,7 @@ export default function Home() {
   const [lista, setLista] = useState<IReceita[]>([]);
 
   const fetchData = async () => {
-    const data  = await getReceitas();
+    const data = await Request('receitas', 'get');
 
     const receitas = data.content;
 
@@ -35,9 +35,9 @@ export default function Home() {
               <img src={item.urlImage} alt={item.titulo} />
             </div>
             <Link to={`/receita/${item.id}`}>
-            <button className={styles.recomendado__botao}>
-              Ver mais
-            </button>
+              <button className={styles.recomendado__botao}>
+                Ver mais
+              </button>
             </Link>
           </div>
         ))}

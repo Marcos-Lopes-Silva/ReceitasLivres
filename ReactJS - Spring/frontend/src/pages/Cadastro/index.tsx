@@ -1,15 +1,26 @@
 import { useForm } from 'react-hook-form';
 import styles from './Cadastro.module.scss';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
+
+const createUserFormSchema = z.object({
+  nome: z.string().min(1, 'O nome é obrigatório.').max(100),
+  email: z.string().email('Formato de email inválido.').min(1, 'O email é obrigatório'),
+  senha: z.string().min(6, 'A senha precisa de no mínimo 6 caracteres.').max(100),
+  dataNascimento: z.coerce.date(),
+})
 
 export default function Cadastro() {
 
-  const { register, setValue, setFocus } = useForm();
+  const { register, handleSubmit, setValue, setFocus } = useForm({
+    resolver: zodResolver(createUserFormSchema),
+  });
   // eslint-disable-next-line
   const checkCEP = (e: any) => {
     if (e.target.value) {
       const cep = e.target.value.replace(/\D/g, '');
-      console.log(cep);
+
       fetch(`https://viacep.com.br/ws/${cep}/json/`)
         .then(res => res.json())
         .then(data => {
@@ -25,29 +36,38 @@ export default function Cadastro() {
     }
   };
 
+
+  function createUser(data: any) {
+    console.log(data);
+  }
+
   return (
-    <form className={styles.cadastro}>
+    <form className={styles.cadastro} onSubmit={handleSubmit(createUser)}>
       <fieldset id='pessoais' className={styles.cadastro__fieldset}>
         <p className={styles.cadastro__a}>Dados Pessoais</p>
         <div className={styles.cadastro__div}>
           <p>Nome</p>
-          <input type="text" />
+          <input type="text" {...register('nome')} />
         </div>
         <div className={styles.cadastro__div}>
           <p>Email</p>
-          <input type="email" />
+          <input type="email" {...register('email')} />
         </div>
         <div className={styles.cadastro__div}>
           <p>Senha</p>
-          <input type="password" />
+          <input type="password" {...register('senha')} />
         </div>
         <div className={styles.cadastro__div}>
           <p>Data de Nascimento</p>
-          <input className={styles.cadastro__date} type="date" id='datePicker' />
+          <input className={styles.cadastro__date} type="date" id='datePicker' {...register('dataNascimento')} />
         </div>
       </fieldset>
       <fieldset id='endereco' className={styles.cadastro__fieldset}>
         <p className={styles.cadastro__a}>Endereço</p>
+        <div className={styles.cadastro__div}>
+          <p>CEP</p>
+          <input type="text" {...register('cep')} onBlur={checkCEP} />
+        </div>
         <div className={styles.cadastro__div}>
           <p>Logradouro</p>
           <input type="text" {...register('logradouro')} />
@@ -55,10 +75,6 @@ export default function Cadastro() {
         <div className={styles.cadastro__div}>
           <p>Bairro</p>
           <input type="text" {...register('bairro')} />
-        </div>
-        <div className={styles.cadastro__div}>
-          <p>CEP</p>
-          <input type="text" {...register('cep')} onBlur={checkCEP} />
         </div>
         <div className={styles.cadastro__div}>
           <p>UF</p>

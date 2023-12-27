@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost/receitas_api?useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  error:
+    include-stacktrace: never
+
+api:
+  security:
+    token:
+      secret: '${JWT_SECRET:12345678}'
+
+aw:
+  storage:
+    s3:
+      key-id: 'AKIAZPYQ4WPZPXV4USPX'
+      key-secret: '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'
+      bucket: 'receitaslivresbucket'
+      region: 'us-east-1'
+    image:
+      download-url: 'https://receitaslivresbucket.s3.amazonaws.com'

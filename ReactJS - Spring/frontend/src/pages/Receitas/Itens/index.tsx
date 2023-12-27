@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Item from './Item';
 import { IReceita } from 'types/types';
 import styles from './Itens.module.scss';
-import { getReceitas } from 'context/AuthProvider/utils';
+import { Request } from 'context/AuthProvider/utils';
 
 interface IProps {
   busca: string;
@@ -40,7 +40,7 @@ export default function Itens(props: IProps) {
   }
 
   const fetchData = async () => {
-    const data = await getReceitas();
+    const data = await Request('receitas', 'get');
     const receitas = data.content;
     const novaLista = receitas.filter((item: IReceita) => testaBusca(item.titulo) && testaFiltro(item.categoria.id));
     setLista(ordenar(novaLista));
@@ -52,11 +52,11 @@ export default function Itens(props: IProps) {
 
   return (
     <div className={styles.itens}>
-        {lista.map((item: IReceita) => (
-          <Item
-            key={item.id}
-            id={item.id}
-            titulo={item.titulo}
+      {lista.map((item: IReceita) => (
+        <Item
+          key={item.id}
+          id={item.id}
+          titulo={item.titulo}
           ingredientes={item.ingredientes}
           modoPreparo={item.modoPreparo}
           descricao={item.descricao}

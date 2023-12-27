@@ -1,53 +1,42 @@
 import { Api } from 'services/api';
-import { IReceita, IUser } from 'types/types';
+import { IUser } from 'types/types';
 
-export async function getReceitas(id?: string) {
+export async function Request(path: string, type: string, id?: string, params?: any,) {
     try {
         if (id != null) {
-            const request = await Api.get(`receitas/${id}`);
+            if (type === 'get')
+                return await (await Api.get(`${path}/${id}`)).data;
 
-            return request.data;
+
+            if (type === 'put')
+                return await (await Api.put(`${path}/${id}`, params)).data
+
+
+            if (type === 'delete')
+                return (await Api.delete(`${path}/${id}`)).data;
+
+
         } else {
-            const request = await Api.get('receitas');
 
-            return request.data;
+            if (type === 'get')
+                return (await Api.get(path)).data;
+
+            if (type === 'post')
+                return (await Api.post(path, params)).data;
+
+
         }
         // eslint-disable-next-line
     } catch (e: any) {
         if (e.response.status === 403) {
             setUserLocalStorage(null);
-            if (id != null) {
-                const request = await Api.get(`receitas/${id}`);
-
-                return request.data;
-            } else {
-                const request = await Api.get('receitas');
-
-                return request.data.content;
-            }
         }
-    }
-}
-
-export async function getCategorias() {
-    try {
-        const request = await Api.get('categorias');
-
-        return request.data;
-        // eslint-disable-next-line
-    } catch (e: any) {
-        if (e.response.status === 403) {
-            setUserLocalStorage(null);
-
-            const request = await Api.get('categorias');
-
-            return request.data;
-        }
+        alert(e.response.data.message);
     }
 }
 
 export function setUserLocalStorage(user: IUser | null) {
-    if(user)
+    if (user)
         localStorage.setItem('u', JSON.stringify(user));
     else
         localStorage.removeItem('u');
@@ -73,13 +62,4 @@ export async function LoginRequest(login: string, senha: string) {
     }
 }
 
-export async function setReceita(params: IReceita) {
-    try {
-        const request = await Api.post('receitas/criar', params);
-
-        return request.data;
-    } catch (error) {
-        return null;
-    }
-}
 

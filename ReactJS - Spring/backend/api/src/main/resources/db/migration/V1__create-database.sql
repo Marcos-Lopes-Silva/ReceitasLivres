@@ -6,6 +6,7 @@ create table usuarios(
     ativo tinyint not null,
     receitas_id bigint,
     logradouro varchar(100) not null,
+    senha varchar(100) not null,
     bairro varchar(100) not null,
     cep varchar(9) not null,
     complemento varchar(100),

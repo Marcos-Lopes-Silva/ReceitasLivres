@@ -13,22 +13,22 @@ public class AllowedContentTypesValidator
 		implements ConstraintValidator<AllowedContentTypes, String> {
 
 	private String[] allowedTypes = {};
-	
+
 	public final void initialize(final AllowedContentTypes annotation) {
 		allowedTypes = annotation.value();
 	}
-	
-	public final boolean isValid(final String type,
-								 final ConstraintValidatorContext context) {
 
-		if (type == null || type.isBlank()){
+	public final boolean isValid(final String type,
+			final ConstraintValidatorContext context) {
+
+		if (type == null || type.isBlank()) {
 			return true;
 		}
-		
+
 		if (allowedTypes.length == 0) {
 			return true;
 		}
-		
+
 		for (String allowedType : this.allowedTypes) {
 			if (type.equals(allowedType)) {
 				return true;

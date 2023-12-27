@@ -8,7 +8,7 @@
     margin: 20px auto;
     height: 100px;
     max-width: calc(100% - 20px);
-   
+
 
     @media (max-width: $desktop_xsm) {
         padding: 0px $padding-horizontal-mobile;
@@ -58,25 +58,24 @@
         list-style-type: none;
         display: flex;
         padding-left: 10px;
-        
-        &:hover{
+
+        &:hover {
             cursor: pointer;
-            color:$dark-grey;
+            color: $dark-grey;
         }
-    
+
         a {
-            
+
             color: $dark;
             cursor: pointer;
-            font-size: 17px;
-            font-weight: 580;
+            font-size: 18px;
+            font-weight: 600;
             text-decoration: none;
             transition: .2s ease;
-    
+
             &:hover {
                 color: $dark-grey;
             }
         }
     }
 }
-

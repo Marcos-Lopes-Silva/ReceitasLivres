@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Categoria } from 'types/types';
 import styles from './Filtros.module.scss';
-import { getCategorias } from 'context/AuthProvider/utils';
+import { Request } from 'context/AuthProvider/utils';
 
 
 
@@ -16,7 +16,7 @@ export default function Filtros({ filtro, setFiltro }: Props) {
   const [filtros, setFiltros] = useState([]);
 
   const fetchData = async () => {
-    const data = getCategorias();
+    const data = Request('categorias', 'get');
     const filtros = data;
     setFiltros(await filtros);
   };

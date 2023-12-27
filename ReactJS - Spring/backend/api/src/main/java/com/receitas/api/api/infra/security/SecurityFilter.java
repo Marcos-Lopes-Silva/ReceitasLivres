@@ -8,8 +8,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.receitas.api.api.infra.sevices.TokenService;
-import com.receitas.api.api.repositories.UsuarioRepository;
+import com.receitas.api.api.domain.repositories.UsuarioRepository;
+import com.receitas.api.api.domain.services.TokenService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
