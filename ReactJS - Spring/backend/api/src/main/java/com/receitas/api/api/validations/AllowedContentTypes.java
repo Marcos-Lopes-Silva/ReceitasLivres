@@ -1,6 +1,5 @@
 package com.receitas.api.api.validations;
 
-
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import java.lang.annotation.Documented;
@@ -15,13 +14,13 @@ import static java.lang.annotation.ElementType.*;
 @Constraint(validatedBy = AllowedContentTypesValidator.class)
 @Documented
 public @interface AllowedContentTypes {
-	
+
 	String message() default "{AllowedContentTypesValidator.message}";
 
 	String[] value() default {};
 
 	Class<?>[] groups() default {};
-	
+
 	Class<? extends Payload>[] payload() default {};
-	
+
 }

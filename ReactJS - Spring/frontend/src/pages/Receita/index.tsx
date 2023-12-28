@@ -2,7 +2,7 @@ import styles from './Receita.module.scss';
 import { useParams } from 'react-router-dom';
 import { IReceita } from 'types/types';
 import { useState, useEffect } from 'react';
-import { getReceitas } from 'context/AuthProvider/utils';
+import { Request } from 'context/AuthProvider/utils';
 
 interface Ingrediente {
   index: number;
@@ -24,7 +24,7 @@ export default function ReceitaP() {
 
 
   const fetchData = async () => {
-    const data = await getReceitas(id);
+    const data = await Request('receitas', 'get', id);
     setReceita(data);
     listIngredientes(data.ingredientes);
   };
@@ -39,7 +39,6 @@ export default function ReceitaP() {
       arr.push({ index: arr.length, input: item });
     });
     setIngredientes(arr);
-
   }
 
 
@@ -74,27 +73,27 @@ export default function ReceitaP() {
               <a>{receita?.serve}</a>
             </div>
           </div>
-          
+
         </div>
         <div className={styles.item__ingredientes}>
           <h1>Ingredientes</h1>
           <ul>
-          {ingredientes.length > 0 ? (ingredientes.map((ingrediente: Ingrediente) => (
-                <li key={ingrediente.index} className={styles.item__ingredientes__ingrediente}>
-                  <label>
-                    {ingrediente.input[0].toUpperCase() + ingrediente.input.substring(1)}
-                  </label>
-                </li>
-            ))) : 
-            <label>Não foram salvos ingredientes</label>
-          }
+            {ingredientes.length > 0 ? (ingredientes.map((ingrediente: Ingrediente) => (
+              <li key={ingrediente.index} className={styles.item__ingredientes__ingrediente}>
+                <label>
+                  {ingrediente.input[0].toUpperCase() + ingrediente.input.substring(1)}
+                </label>
+              </li>
+            ))) :
+              <label>Não foram salvos ingredientes</label>
+            }
           </ul>
-          
+
         </div>
         <div className={styles.item__modopreparo}>
           <h1>Modo de Preparo</h1>
           <div>
-            <a>{receita?.modoPreparo}</a> 
+            <a>{receita?.modoPreparo}</a>
           </div>
         </div>
       </div>

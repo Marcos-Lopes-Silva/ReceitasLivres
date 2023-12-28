@@ -1,6 +1,5 @@
 package com.receitas.api.api.validations;
 
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -15,13 +14,13 @@ import static java.lang.annotation.ElementType.*;
 @Constraint(validatedBy = AllowedFileExtensionsValidator.class)
 @Documented
 public @interface AllowedFileExtensions {
-	
+
 	String message() default "{AllowedFileExtensionsValidator.message}";
 
 	String[] value() default {};
 
 	Class<?>[] groups() default {};
-	
+
 	Class<? extends Payload>[] payload() default {};
-	
+
 }
