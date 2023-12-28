@@ -3,7 +3,7 @@ import { IUser } from 'types/types';
 
 export async function Request(path: string, type: string, id?: string, params?: any,) {
     try {
-        if (id != null) {
+        if (id !== null && id !== '') {
             if (type === 'get')
                 return await (await Api.get(`${path}/${id}`)).data;
 
@@ -14,8 +14,6 @@ export async function Request(path: string, type: string, id?: string, params?: 
 
             if (type === 'delete')
                 return (await Api.delete(`${path}/${id}`)).data;
-
-
         } else {
 
             if (type === 'get')
@@ -24,14 +22,13 @@ export async function Request(path: string, type: string, id?: string, params?: 
             if (type === 'post')
                 return (await Api.post(path, params)).data;
 
-
         }
         // eslint-disable-next-line
     } catch (e: any) {
         if (e.response.status === 403) {
             setUserLocalStorage(null);
         }
-        alert(e.response.data.message);
+        alert(e);
     }
 }
 
@@ -59,6 +56,24 @@ export async function LoginRequest(login: string, senha: string) {
 
     } catch (error) {
         return null;
+    }
+}
+
+export async function AWSBucket(path: string, params: any) {
+    try {
+        const request = await Api({
+            method: 'put',
+            url: path,
+            data: params,
+            headers: {
+                'Content-Type': 'image/*'
+            }
+        })
+
+        return request.data;
+
+    } catch (error: any) {
+        console.log(error)
     }
 }
 
