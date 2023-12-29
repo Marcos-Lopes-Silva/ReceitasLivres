@@ -29,7 +29,7 @@ public class SecurityConfiguration {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeHttpRequests()
                 .requestMatchers(HttpMethod.POST, "/login").permitAll()
-                .requestMatchers(HttpMethod.POST, "/u/cadastrar").permitAll()
+                .requestMatchers(HttpMethod.POST, "/user/create").permitAll()
                 .requestMatchers(HttpMethod.GET, "/receitas").permitAll()
                 .requestMatchers(HttpMethod.GET, "/categorias").permitAll()
                 .requestMatchers(HttpMethod.GET, "/receitas/{id}").permitAll()

@@ -30,7 +30,7 @@ public class StorageService {
         fileReferenceRepository.save(fileReference);
         URL presignedUploadUrl = cloudStorageProvider.generatedUploadUrl(fileReference);
         System.out.println(presignedUploadUrl.toString());
-        return new UploadRequestResult(fileReference.getId(), presignedUploadUrl.toString());
+        return new UploadRequestResult(fileReference.getId(), presignedUploadUrl.toString(), fileReference.getContentType());
     }
 
     public DownloadRequestResult generateDownloadUrl(FileReference fileReference) {

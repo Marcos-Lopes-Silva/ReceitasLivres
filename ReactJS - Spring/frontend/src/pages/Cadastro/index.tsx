@@ -4,6 +4,8 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormEvent, useState } from 'react';
 import { AWSBucket, Request } from 'context/AuthProvider/utils';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 const createEnderecoFormSchema = z.object({
@@ -15,24 +17,21 @@ const createEnderecoFormSchema = z.object({
   complemento: z.string()
 })
 
-
 const createUserFormSchema = z.object({
   nome: z.string().min(1, 'O nome é obrigatório.').max(100),
   login: z.string().email('Formato de email inválido.').min(1, 'O email é obrigatório'),
   senha: z.string().min(6, 'A senha precisa de no mínimo 6 caracteres.').max(100),
   dataNascimento: z.coerce.date(),
   photo: z.instanceof(FileList).transform(fileList => fileList.item(0)),
-  photoId: z.string().optional(),
   endereco: createEnderecoFormSchema
 })
-
-
 
 type UserFormSchema = z.infer<typeof createUserFormSchema>;
 
 export default function Cadastro() {
+  const navigate = useNavigate();
   const [ imagePreview, setImagePreview ] = useState<string | null>(null);
-  const { register, handleSubmit, setValue, setFocus, formState: { errors} } = useForm<UserFormSchema>({
+  const { register, handleSubmit, setValue, setFocus, formState: { errors } } = useForm<UserFormSchema>({
     resolver: zodResolver(createUserFormSchema),
   });
 
@@ -89,15 +88,22 @@ export default function Cadastro() {
         contentLength: data.photo?.size,
         contentType: data.photo?.type
       });
-
-    setValue('photoId', responseImage.id);
-
-    const request = await AWSBucket(responseImage.url, data.photo);
-    console.log(request);
-
-
-    const responseUser = await Request('user/create', 'post', '', data);
-    console.log(responseUser);  
+    
+    
+    await AWSBucket(responseImage.uploadSignedUrl, data.photo, responseImage.contentType);
+    
+    const newUser = {...data, photoId: responseImage.fileReferenceId };
+    
+    const responseUser = await Request('user/create', 'post', '', newUser);
+    
+    if(responseUser) {
+      toast.success('Usuário cadastrado com sucesso!');
+      navigate('/login');
+    } else {
+      toast.error('Erro ao cadastrar usuário! Aguarde alguns instantes para tentar novamente. Caso o erro persista entre em contato com o suporte.');
+    }
+    
+    
   }
 
   return (
@@ -128,7 +134,7 @@ export default function Cadastro() {
           <div className={styles.cadastro__formssection__div}>
             <p>Avatar</p>
             <input type='file' className={styles.cadastro__formssection__imagem} {...register('photo', {onChange: handleImageChange})}  accept='image/*' />
-            { imagePreview && <img src={imagePreview} alt='Avatar' style={{ transition:'2s', maxWidth: '100%', maxHeight: '200px', marginTop: '20px', borderRadius:'10px' }}/> }
+            { imagePreview && <img src={imagePreview} alt='Avatar' style={{ transition:'2s', maxWidth: '35%', maxHeight: '150px', marginTop: '20px', borderRadius:'10px' }}/> }
           </div>
         </fieldset>
 

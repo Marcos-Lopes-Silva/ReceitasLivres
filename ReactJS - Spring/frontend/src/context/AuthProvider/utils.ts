@@ -1,9 +1,10 @@
+import axios from 'axios';
 import { Api } from 'services/api';
 import { IUser } from 'types/types';
 
 export async function Request(path: string, type: string, id?: string, params?: any,) {
     try {
-        if (id !== null && id !== '') {
+        if (id !== null && id !== '' && id !== undefined) {
             if (type === 'get')
                 return await (await Api.get(`${path}/${id}`)).data;
 
@@ -59,21 +60,18 @@ export async function LoginRequest(login: string, senha: string) {
     }
 }
 
-export async function AWSBucket(path: string, params: any) {
+export async function AWSBucket(path: string, params: any, contentType: string) {
     try {
-        const request = await Api({
-            method: 'put',
-            url: path,
-            data: params,
+        const request = await axios.put(path, params, {
             headers: {
-                'Content-Type': 'image/*'
+                'Content-Type': contentType
             }
         })
 
         return request.data;
 
-    } catch (error: any) {
-        console.log(error)
+    } catch (e: any) {
+        console.log(e)
     }
 }
 
