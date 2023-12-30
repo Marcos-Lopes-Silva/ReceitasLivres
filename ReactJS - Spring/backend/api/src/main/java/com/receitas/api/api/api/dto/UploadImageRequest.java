@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record UploadImageRequest(@NotBlank @AllowedFileExtensions( {
-        "png", "jpg" }) String fileName,
+        "png", "jpg", "jpeg" }) String fileName,
         @NotBlank @AllowedContentTypes({ "image/png", "image/jpg", "image/jpeg" }) String contentType,
         @NotNull @Min(1) Long contentLength){
     public FileReference toDomain() {

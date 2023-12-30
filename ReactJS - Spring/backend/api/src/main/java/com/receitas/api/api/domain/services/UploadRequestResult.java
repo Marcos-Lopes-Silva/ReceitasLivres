@@ -9,4 +9,5 @@ public class UploadRequestResult {
 
     private Long fileReferenceId;
     private String uploadSignedUrl;
+    private String contentType;
 }

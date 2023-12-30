@@ -1,15 +1,16 @@
+import axios from 'axios';
 import { Api } from 'services/api';
 import { IUser } from 'types/types';
 
 export async function Request(path: string, type: string, id?: string, params?: any,) {
     try {
-        if (id !== null && id !== '') {
+        if (id !== null && id !== '' && id !== undefined) {
             if (type === 'get')
-                return await (await Api.get(`${path}/${id}`)).data;
+                return (await Api.get(`${path}/${id}`)).data;
 
 
             if (type === 'put')
-                return await (await Api.put(`${path}/${id}`, params)).data
+                return (await Api.put(`${path}/${id}`, params)).data
 
 
             if (type === 'delete')
@@ -28,7 +29,7 @@ export async function Request(path: string, type: string, id?: string, params?: 
         if (e.response.status === 403) {
             setUserLocalStorage(null);
         }
-        alert(e);
+        console.log(e);
     }
 }
 
@@ -59,16 +60,9 @@ export async function LoginRequest(login: string, senha: string) {
     }
 }
 
-export async function AWSBucket(path: string, params: any) {
+export async function AWSBucket(path: string, params: any, type: string) {
     try {
-        const request = await Api({
-            method: 'put',
-            url: path,
-            data: params,
-            headers: {
-                'Content-Type': 'image/*'
-            }
-        })
+        const request = await axios.put(path, params, { headers: { 'Content-Type': type } });
 
         return request.data;
 
