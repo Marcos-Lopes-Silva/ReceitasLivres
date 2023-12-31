@@ -5,6 +5,7 @@ import Filtros from 'components/Filtros';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { AWSBucket, Request } from 'context/AuthProvider/utils';
 
 const createReceitaFormSchema = z.object({
     titulo: z.string()
@@ -28,6 +29,7 @@ const createReceitaFormSchema = z.object({
     size: z.coerce.number().min(5, 'A porção precisa ser maior que 5g.'),
     descricao: z.string().min(1, 'A descrição é obrigatória.'),
     serve: z.coerce.number().min(1, 'A receita precisa servir pelo menos uma pessoa.'),
+    photo: z.instanceof(FileList).transform((fileList) => fileList.item(0)),
 })
 
 type ReceitaFormSchema = z.infer<typeof createReceitaFormSchema>;
@@ -48,9 +50,27 @@ export default function NovaReceita() {
         append({ name: '' });
     }
 
-    const submitReceita = (data: ReceitaFormSchema) => {
-        console.log(data);
-    };
+    async function submitReceita(data: ReceitaFormSchema) {
+        const responseImage = await Request(
+            'upload/image',
+            'post',
+            '',
+            {
+                fileName: data.photo?.name,
+                contentLength: data.photo?.size,
+                contentType: data.photo?.type
+            });
+
+        await AWSBucket(responseImage.uploadSignedUrl, data.photo, responseImage.contentType);
+
+        const responseReceita = await Request(
+            'receita/create',
+            'post',
+            '',
+            {
+                ...data, photoId: responseImage.fileReferenceId
+            });
+    }
 
 
 
