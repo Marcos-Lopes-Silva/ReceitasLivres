@@ -4,6 +4,8 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormEvent, useState } from 'react';
 import { AWSBucket, Request } from 'context/AuthProvider/utils';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 
 const createEnderecoFormSchema = z.object({
@@ -36,6 +38,7 @@ const createUserFormSchema = z.object({
 type UserFormSchema = z.infer<typeof createUserFormSchema>;
 
 export default function Cadastro() {
+  const navigate = useNavigate();
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const { register, handleSubmit, setValue, setFocus, formState: { errors } } = useForm<UserFormSchema>({
     resolver: zodResolver(createUserFormSchema),
@@ -53,12 +56,18 @@ export default function Cadastro() {
       fetch(`https://viacep.com.br/ws/${cep}/json/`)
         .then(res => res.json())
         .then(data => {
-          setValue('endereco.logradouro', data.logradouro);
-          setValue('endereco.bairro', data.bairro);
-          setValue('endereco.cidade', data.localidade);
-          setValue('endereco.uf', data.uf);
-          setValue('endereco.cep', data.cep);
-          setFocus('endereco.complemento');
+          console.log(data);
+          if (data.erro) {
+            toast.error('CEP inválido.');
+          } else {
+            setValue('endereco.logradouro', data.logradouro);
+            setValue('endereco.bairro', data.bairro);
+            setValue('endereco.cidade', data.localidade);
+            setValue('endereco.uf', data.uf);
+            setValue('endereco.cep', data.cep);
+            setFocus('endereco.complemento');
+          }
+
         })
         .catch((err) => { console.log(err); });
     }
@@ -101,11 +110,13 @@ export default function Cadastro() {
     await AWSBucket(
       responseImage.uploadSignedUrl,
       data.photo,
-      responseImage.contentType
+      responseImage.contentType,
     );
 
     const responseUser = await Request('user/create', 'post', '', data);
-    console.log(responseUser);
+    if (responseUser)
+      toast.success('Usuário cadastrado com sucesso!'); navigate('/login');
+
   }
 
   return (

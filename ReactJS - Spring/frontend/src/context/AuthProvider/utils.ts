@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { Api } from 'services/api';
 import { IUser } from 'types/types';
 
@@ -29,7 +30,7 @@ export async function Request(path: string, type: string, id?: string, params?: 
         if (e.response.status === 403) {
             setUserLocalStorage(null);
         }
-        console.log(e);
+        toast.error('Um erro inesperado aconteceu. Aguarde alguns instantes e tente novamente, se o erro persistir, entre em contato com o suporte.');
     }
 }
 
