@@ -61,7 +61,6 @@ export async function LoginRequest(login: string, senha: string) {
     }
 }
 
-<<<<<<< HEAD
 export async function AWSBucket(path: string, params: any, contentType: string) {
     try {
         const request = await axios.put(path, params, {
@@ -69,11 +68,6 @@ export async function AWSBucket(path: string, params: any, contentType: string) 
                 'Content-Type': contentType
             }
         })
-=======
-export async function AWSBucket(path: string, params: any, type: string) {
-    try {
-        const request = await axios.put(path, params, { headers: { 'Content-Type': type } });
->>>>>>> 7f359964489d978de6273efb9180f8be40f2c597
 
         return request.data;
 
