@@ -41,7 +41,7 @@
         transition: .3s ease;
     }
 
-    &__inputbox input{
+    &__inputbox input {
         width: 100%;
         height: 100%;
         background: transparent;
@@ -51,10 +51,11 @@
         padding-right: 28px;
     }
 
-    &__inputbox input:focus ~ label,
-    &__inputbox input:valid ~ label{
+    &__inputbox input:focus~label,
+    &__inputbox input:valid~label {
         top: -5px;
     }
+
 
     &__icon {
         position: absolute;
@@ -74,13 +75,14 @@
             accent-color: #ff0000;
             margin-right: 3px;
         }
-        
+
         a {
             font-weight: 600;
         }
-    }   
+    }
+
     button {
-        height:50px;
+        height: 50px;
         outline: none;
         border-radius: 7px;
         width: 100%;
@@ -88,6 +90,3 @@
         font-size: 16px;
     }
 }
-
-
-

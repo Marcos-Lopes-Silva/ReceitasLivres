@@ -6,6 +6,7 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AWSBucket, Request } from 'context/AuthProvider/utils';
+import { useNavigate } from 'react-router-dom';
 
 const createReceitaFormSchema = z.object({
     titulo: z.string()
@@ -35,7 +36,7 @@ const createReceitaFormSchema = z.object({
 type ReceitaFormSchema = z.infer<typeof createReceitaFormSchema>;
 
 export default function NovaReceita() {
-
+    const navigate = useNavigate();
     const { register, handleSubmit, control, formState: { errors, isSubmitting } } = useForm<ReceitaFormSchema>({
         resolver: zodResolver(createReceitaFormSchema),
     });
@@ -70,6 +71,7 @@ export default function NovaReceita() {
             {
                 ...data, photoId: responseImage.fileReferenceId
             });
+        if (responseReceita) navigate('/receita')
     }
 
 

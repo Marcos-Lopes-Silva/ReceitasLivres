@@ -1,4 +1,4 @@
-import { CgLock, CgMail } from 'react-icons/cg';
+import { CgEye, CgLock, CgMail } from 'react-icons/cg';
 import styles from './Login.module.scss';
 import { useAuth } from 'context/AuthProvider/useAuth';
 import { useNavigate, Link } from 'react-router-dom';
@@ -13,8 +13,6 @@ export default function Login() {
 
 
 
-
-
   async function handleLogin(e: React.SyntheticEvent) {
     e.preventDefault();
     const target = e.target as typeof e.target & {
@@ -25,12 +23,11 @@ export default function Login() {
     const password = target.password.value;
 
     try {
-
       await auth.authenticate(email, password);
       toast.success('Login realizado com sucesso!');
       navigate('/');
     } catch (error) {
-      toast.error('Usuário ou senha incorretos.')
+      toast.error('Usuário ou senha incorretos.');
     }
   }
 
@@ -46,12 +43,12 @@ export default function Login() {
           <h2>Login</h2>
           <div className={styles.section__inputbox}>
             <CgMail className={styles.section__icon} size={20} color="#4C4D5E" />
-            <input className={styles.section__input} type="email" name='email' required />
+            <input type="email" name='email' required />
             <label htmlFor="">Email</label>
           </div>
           <div className={styles.section__inputbox}>
-            <CgLock className={styles.section__icon} size={20} color="#4C4D5E" />
-            <input className={styles.section__input} type="password" name='password' required />
+            <CgLock className={styles.section__icon} size={20} color="#4C4D5E" /> <CgEye className={styles.section__icon} size={20} color="#4C4D5E" />
+            <input type="password" name='password' required />
             <label htmlFor="">Senha</label>
           </div>
           <div className={styles.section__rememberpass}>

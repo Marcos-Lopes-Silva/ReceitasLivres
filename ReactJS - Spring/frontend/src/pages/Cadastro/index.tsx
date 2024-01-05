@@ -29,7 +29,6 @@ const createUserFormSchema = z.object({
   senha: z.string().min(6, 'A senha precisa de no mínimo 6 caracteres.').max(100),
   dataNascimento: z.coerce.date(),
   photo: z.instanceof(FileList).transform((fileList) => fileList.item(0)),
-  photoId: z.coerce.number().nullable(),
   endereco: createEnderecoFormSchema
 })
 
@@ -104,19 +103,17 @@ export default function Cadastro() {
       });
 
 
-    setValue('photoId', responseImage.fileReferenceId);
-    console.log(responseImage.uploadSignedUrl);
-
     await AWSBucket(
       responseImage.uploadSignedUrl,
       data.photo,
       responseImage.contentType,
     );
 
-    const responseUser = await Request('user/create', 'post', '', data);
-    if (responseUser)
-      toast.success('Usuário cadastrado com sucesso!'); navigate('/login');
+    const responseUser = await Request('user/create', 'post', '', { ...data, photoId: responseImage.fileReferenceId });
 
+    if (responseUser) {
+      toast.success('Usuário cadastrado com sucesso!'); navigate('/login');
+    } else toast.error('Erro ao cadastrar usuário. Aguarde alguns instantes e tente novamente.');
   }
 
   return (
