@@ -21,10 +21,6 @@
     "react-router-dom": "^6.7.0",
     "react-scripts": "5.0.1",
     "react-toastify": "^9.1.3",
-<<<<<<< HEAD
-=======
-    "toastify": "^2.0.1",
->>>>>>> 7f359964489d978de6273efb9180f8be40f2c597
     "typescript": "^4.9.4",
     "web-vitals": "^2.1.4",
     "zod": "^3.22.4"
