@@ -1,8 +1,8 @@
-import { CgEye, CgLock, CgMail } from 'react-icons/cg';
+import { CgEye, CgLock, CgLockUnlock, CgMail } from 'react-icons/cg';
 import styles from './Login.module.scss';
 import { useAuth } from 'context/AuthProvider/useAuth';
 import { useNavigate, Link } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 
@@ -10,7 +10,7 @@ export default function Login() {
 
   const auth = useAuth();
   const navigate = useNavigate();
-
+  const [ typePass, setTypePass ] = useState<'password' | 'text'>('password');
 
 
   async function handleLogin(e: React.SyntheticEvent) {
@@ -47,8 +47,12 @@ export default function Login() {
             <label htmlFor="">Email</label>
           </div>
           <div className={styles.section__inputbox}>
-            <CgLock className={styles.section__icon} size={20} color="#4C4D5E" /> <CgEye className={styles.section__icon} size={20} color="#4C4D5E" />
-            <input type="password" name='password' required />
+          {
+            typePass == 'password'
+            ? <CgLock className={styles.section__icon} size={20} color="#4C4D5E" onClick={() => setTypePass('text')}/> 
+            : <CgLockUnlock className={styles.section__icon} size={20} color="#4C4D5E" onClick={() => setTypePass('password')} />
+          }
+            <input type={typePass} name='password' required />
             <label htmlFor="">Senha</label>
           </div>
           <div className={styles.section__rememberpass}>

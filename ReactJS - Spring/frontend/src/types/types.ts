@@ -27,6 +27,9 @@ export type Categoria = {
 export interface IUser {
     login?: string;
     token?: string;
+    id?: number;
+    nome?: string;
+    photo?: string;
 }
 
 export interface IContext extends IUser {

@@ -39,7 +39,7 @@ export default function Navbar() {
   useEffect(() => {
     if (auth.login != (undefined || null) || '') {
       const rota: IRota[] = []
-
+      
       setRotas2(rota);
     }else {
       const rota = [{
@@ -72,7 +72,8 @@ export default function Navbar() {
       <ul className={styles.nav__list2}>
 
 
-        {rotas2.length > 0 
+        {
+        rotas2.length > 0 
         ? rotas2.map((rota: IRota, index: number) => (
             <li key={index} className={styles.nav__sidebutton}>
               <Link to={rota.to}>
@@ -80,8 +81,9 @@ export default function Navbar() {
               </Link>
             </li>
           ))
-          : <CgUser size={50} onClick={showSidebar} className={styles.nav__sidebutton}/>}
-            {sidebar && <Sidebar active={setSidebar}/>}
+        : <img src={auth.photo} alt='Avatar' onClick={() => setSidebar(!sidebar)}/>
+        }
+          {sidebar && <Sidebar active={setSidebar}/>}
       </ul>
     </nav>
   );

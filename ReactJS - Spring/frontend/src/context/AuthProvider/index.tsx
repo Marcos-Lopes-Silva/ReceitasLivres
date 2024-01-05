@@ -10,19 +10,21 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
     const [user, setUser] = useState<IUser | null>();
 
     useEffect(() => {
-        const user = getUserLocalStorage();
-
         if (user) {
             setUser(user);
+        } else {
+            const user = getUserLocalStorage();
+            if(user) setUser(user);
         }
     }, []);
 
     async function authenticate(login: string, senha: string) {
         const response = await LoginRequest(login, senha);
-        const payload = { token: response.token, login };
+        console.log(response);
+        const payload = { token: response.token, login, nome: response.nome, photo: response.photo, id: response.id};
 
         setUser(payload);
-        setUserLocalStorage(payload);
+        setUserLocalStorage({token: payload.token, login: payload.login});
     }
 
     function logout() {

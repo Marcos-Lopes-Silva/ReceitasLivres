@@ -28,4 +28,4 @@ aw:
       bucket: 'receitaslivresbucket'
       region: 'us-east-1'
     image:
-      download-url: 'https://receitaslivresbucket.s3.amazonaws.com'
+      download-url: 'https://receitaslivresbucket.s3.amazonaws.com/'
