@@ -10,7 +10,7 @@ public record DadosCadastroEndereco(
                 @NotBlank String cidade,
                 @NotBlank String uf,
 
-                String numero,
-                String complemento) {
+        String numero,
+        String complemento) {
 
 }

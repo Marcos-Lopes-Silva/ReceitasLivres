@@ -1,16 +1,15 @@
-import { CgLock, CgMail } from 'react-icons/cg';
+import { CgEye, CgLock, CgMail } from 'react-icons/cg';
 import styles from './Login.module.scss';
 import { useAuth } from 'context/AuthProvider/useAuth';
 import { useNavigate, Link } from 'react-router-dom';
 import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 
 export default function Login() {
 
   const auth = useAuth();
   const navigate = useNavigate();
-  const errorMessage = () => alert('Email ou senha incorretos');
-
 
 
 
@@ -24,12 +23,11 @@ export default function Login() {
     const password = target.password.value;
 
     try {
-
       await auth.authenticate(email, password);
-
+      toast.success('Login realizado com sucesso!');
       navigate('/');
     } catch (error) {
-      errorMessage();
+      toast.error('Usuário ou senha incorretos.');
     }
   }
 
@@ -41,26 +39,26 @@ export default function Login() {
 
     <div className={styles.section}>
       <div className={styles.section__formbox}>
-          <form onSubmit={handleLogin} >
-            <h2>Login</h2>
-            <div className={styles.section__inputbox}>
-              <CgMail className={styles.section__icon} size={20} color="#4C4D5E" />
-              <input className={styles.section__input} type="email" name='email' required />
-              <label htmlFor="">Email</label>
-            </div>
-            <div className={styles.section__inputbox}>
-              <CgLock className={styles.section__icon} size={20} color="#4C4D5E" />
-              <input className={styles.section__input} type="password" name='password' required />
-              <label htmlFor="">Senha</label>
-            </div>
-            <div className={styles.section__rememberpass}>
-              <label htmlFor=""><input type="checkbox" />Lembre de mim</label>
-              <Link to={'/cadastrar'}>
-                Criar uma conta
-              </Link>
-            </div>
-            <button type='submit' >Log in</button>
-          </form>
+        <form onSubmit={handleLogin} >
+          <h2>Login</h2>
+          <div className={styles.section__inputbox}>
+            <CgMail className={styles.section__icon} size={20} color="#4C4D5E" />
+            <input type="email" name='email' required />
+            <label htmlFor="">Email</label>
+          </div>
+          <div className={styles.section__inputbox}>
+            <CgLock className={styles.section__icon} size={20} color="#4C4D5E" /> <CgEye className={styles.section__icon} size={20} color="#4C4D5E" />
+            <input type="password" name='password' required />
+            <label htmlFor="">Senha</label>
+          </div>
+          <div className={styles.section__rememberpass}>
+            <label htmlFor=""><input type="checkbox" />Lembre de mim</label>
+            <Link to={'/cadastrar'}>
+              Criar uma conta
+            </Link>
+          </div>
+          <button type='submit' >Log in</button>
+        </form>
       </div>
     </div>
   );

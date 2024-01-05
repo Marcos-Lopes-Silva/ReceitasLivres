@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { Api } from 'services/api';
 import { IUser } from 'types/types';
 
@@ -6,11 +7,11 @@ export async function Request(path: string, type: string, id?: string, params?: 
     try {
         if (id !== null && id !== '' && id !== undefined) {
             if (type === 'get')
-                return await (await Api.get(`${path}/${id}`)).data;
+                return (await Api.get(`${path}/${id}`)).data;
 
 
             if (type === 'put')
-                return await (await Api.put(`${path}/${id}`, params)).data
+                return (await Api.put(`${path}/${id}`, params)).data
 
 
             if (type === 'delete')
@@ -29,7 +30,7 @@ export async function Request(path: string, type: string, id?: string, params?: 
         if (e.response.status === 403) {
             setUserLocalStorage(null);
         }
-        alert(e);
+        toast.error('Um erro inesperado aconteceu. Aguarde alguns instantes e tente novamente, se o erro persistir, entre em contato com o suporte.');
     }
 }
 
@@ -60,6 +61,7 @@ export async function LoginRequest(login: string, senha: string) {
     }
 }
 
+<<<<<<< HEAD
 export async function AWSBucket(path: string, params: any, contentType: string) {
     try {
         const request = await axios.put(path, params, {
@@ -67,6 +69,11 @@ export async function AWSBucket(path: string, params: any, contentType: string) 
                 'Content-Type': contentType
             }
         })
+=======
+export async function AWSBucket(path: string, params: any, type: string) {
+    try {
+        const request = await axios.put(path, params, { headers: { 'Content-Type': type } });
+>>>>>>> 7f359964489d978de6273efb9180f8be40f2c597
 
         return request.data;
 

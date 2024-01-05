@@ -18,7 +18,12 @@ const createEnderecoFormSchema = z.object({
 })
 
 const createUserFormSchema = z.object({
-  nome: z.string().min(1, 'O nome é obrigatório.').max(100),
+  nome: z.string().min(1, 'O nome é obrigatório.').transform((name => {
+    return name.trim().split(' ').map(word => {
+      return word[0].toUpperCase() + word.slice(1)
+    })
+      .join(' ')
+  })),
   login: z.string().email('Formato de email inválido.').min(1, 'O email é obrigatório'),
   senha: z.string().min(6, 'A senha precisa de no mínimo 6 caracteres.').max(100),
   dataNascimento: z.coerce.date(),
@@ -35,8 +40,8 @@ export default function Cadastro() {
     resolver: zodResolver(createUserFormSchema),
   });
 
-  
-  
+
+
   const checkCEP = (e: FormEvent<HTMLInputElement>) => {
     const target = e.target as typeof e.target & {
       value: string;
@@ -47,12 +52,18 @@ export default function Cadastro() {
       fetch(`https://viacep.com.br/ws/${cep}/json/`)
         .then(res => res.json())
         .then(data => {
-          setValue('endereco.logradouro', data.logradouro);
-          setValue('endereco.bairro', data.bairro);
-          setValue('endereco.cidade', data.localidade);
-          setValue('endereco.uf', data.uf);
-          setValue('endereco.cep', data.cep);
-          setFocus('endereco.complemento');
+          console.log(data);
+          if (data.erro) {
+            toast.error('CEP inválido.');
+          } else {
+            setValue('endereco.logradouro', data.logradouro);
+            setValue('endereco.bairro', data.bairro);
+            setValue('endereco.cidade', data.localidade);
+            setValue('endereco.uf', data.uf);
+            setValue('endereco.cep', data.cep);
+            setFocus('endereco.complemento');
+          }
+
         })
         .catch((err) => { console.log(err); });
     }
@@ -65,7 +76,7 @@ export default function Cadastro() {
     }
     const file = target.files.item(0);
 
-    if(file) {
+    if (file) {
       const render = new FileReader();
       render.onload = () => {
         setImagePreview(render.result as string);
@@ -77,10 +88,9 @@ export default function Cadastro() {
 
 
   async function createUser(data: UserFormSchema) {
-    
-    
+
     const responseImage = await Request(
-      '/upload/image',
+      'upload/image',
       'post',
       '',
       {
@@ -113,22 +123,22 @@ export default function Cadastro() {
           <p className={styles.cadastro__formssection__a}>Dados Pessoais</p>
           <div className={styles.cadastro__formssection__div}>
             <p>Nome</p>
-            <input type="text" {...register('nome')} />
+            <input type='text' {...register('nome')} />
             {errors.nome && <span className={styles.cadastro__formssection__error}>{errors.nome.message}</span>}
           </div>
           <div className={styles.cadastro__formssection__div}>
             <p>Email</p>
-            <input type="email" {...register('login')} />
+            <input type='email' {...register('login')} />
             {errors.login && <span className={styles.cadastro__formssection__error}>{errors.login.message}</span>}
           </div>
           <div className={styles.cadastro__formssection__div}>
             <p>Senha</p>
-            <input type="password" {...register('senha')} />
+            <input type='password' {...register('senha')} />
             {errors.senha && <span className={styles.cadastro__formssection__error}>{errors.senha.message}</span>}
           </div>
           <div className={styles.cadastro__formssection__div}>
             <p>Data de Nascimento</p>
-            <input className={styles.cadastro__formssection__date} type="date" id='datePicker' {...register('dataNascimento')} />
+            <input className={styles.cadastro__formssection__date} type='date' id='datePicker' {...register('dataNascimento')} />
             {errors.dataNascimento && <span className={styles.cadastro__formssection__error}>{errors.dataNascimento.message}</span>}
           </div>
           <div className={styles.cadastro__formssection__div}>
@@ -144,44 +154,43 @@ export default function Cadastro() {
 
           <div className={styles.cadastro__formssection__div}>
             <p>CEP</p>
-            <input type="text" {...register('endereco.cep')} onBlur={checkCEP} />
+            <input type='text' {...register('endereco.cep')} onBlur={checkCEP} />
             {errors.endereco?.cep && <span className={styles.cadastro__formssection__error}>{errors.endereco.cep.message}</span>}
           </div>
 
           <div className={styles.cadastro__formssection__div}>
             <p>Logradouro</p>
-            <input type="text" {...register('endereco.logradouro')} />
+            <input type='text' {...register('endereco.logradouro')} />
             {errors.endereco?.logradouro && <span className={styles.cadastro__formssection__error}>{errors.endereco.logradouro.message}</span>}
           </div>
 
           <div className={styles.cadastro__formssection__div}>
             <p>Bairro</p>
-            <input type="text" {...register('endereco.bairro')} />
+            <input type='text' {...register('endereco.bairro')} />
             {errors.endereco?.bairro && <span className={styles.cadastro__formssection__error}>{errors.endereco.bairro.message}</span>}
           </div>
 
           <div className={styles.cadastro__formssection__div}>
             <p>UF</p>
-            <input type="text" {...register('endereco.uf')} />
+            <input type='text' {...register('endereco.uf')} />
             {errors.endereco?.uf && <span className={styles.cadastro__formssection__error}>{errors.endereco.uf.message}</span>}
           </div>
 
           <div className={styles.cadastro__formssection__div}>
             <p>Cidade</p>
-            <input type="text" {...register('endereco.cidade')} />
+            <input type='text' {...register('endereco.cidade')} />
             {errors.endereco?.cidade && <span className={styles.cadastro__formssection__error}>{errors.endereco.cidade.message}</span>}
           </div>
 
           <div className={styles.cadastro__formssection__div}>
             <p>Complemento</p>
-            <input type="text" {...register('endereco.complemento')} />
+            <input type='text' {...register('endereco.complemento')} />
             {errors.endereco?.complemento && <span className={styles.cadastro__formssection__error}>{errors.endereco.complemento.message}</span>}
           </div>
 
         </fieldset>
       </div>
-      <input type="submit" value="Cadastrar" className={styles.button} id="button" />
-
+      <input type='submit' value='Cadastrar' className={styles.button} />
     </form>
   );
 }

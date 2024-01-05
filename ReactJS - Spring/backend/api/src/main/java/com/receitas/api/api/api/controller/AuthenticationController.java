@@ -27,11 +27,15 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<DadosTokenJWT> login(@RequestBody @Valid DadosAuthentication dados) {
-        var authenticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
-        var authentication = manager.authenticate(authenticationToken);
-        var tokenJWT = tokenService.getToken((Usuario) authentication.getPrincipal());
+        try {
+            var authenticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
+            var authentication = manager.authenticate(authenticationToken);
+            var tokenJWT = tokenService.getToken((Usuario) authentication.getPrincipal());
+            return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
 
-        return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
     }
 
 }

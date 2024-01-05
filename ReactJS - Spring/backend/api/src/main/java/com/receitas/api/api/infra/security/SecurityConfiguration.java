@@ -33,7 +33,7 @@ public class SecurityConfiguration {
                 .requestMatchers(HttpMethod.GET, "/receitas").permitAll()
                 .requestMatchers(HttpMethod.GET, "/categorias").permitAll()
                 .requestMatchers(HttpMethod.GET, "/receitas/{id}").permitAll()
-                .requestMatchers(HttpMethod.POST, "/upload/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/upload/image").permitAll()
                 .anyRequest().authenticated()
                 .and().addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
