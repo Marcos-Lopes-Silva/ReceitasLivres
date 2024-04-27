@@ -1,0 +1,186 @@
+@import "@/styles/variaveis";
+@import "@/styles/breakpoints";
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;400&display=swap');
+
+
+
+.forms {
+
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    max-width: calc(100% - 20px);
+
+    &__boxall {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    &__boxleft {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+        // max-width: 100%;
+        background-color: #f6f6f6;
+    }
+
+    &__boxright {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        background-color: #ffffff;
+    }
+
+
+    &__button {
+        cursor: pointer;
+        background-color: $red;
+        color: #ffffff;
+        border: 0;
+        border-radius: 5px;
+        justify-self: center;
+        position: relative;
+        margin-top: 25px;
+        padding: 10px 20px;
+        left: 0;
+        width: 100%;
+    }
+
+    &__inputbox {
+        position: relative;
+        width: 50%;
+        height: 90%;
+        margin: 17px 0;
+    }
+
+    &__inputbox label {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        position: absolute;
+        transform: translateY(-50%);
+        top: 50%;
+        left: 15px;
+        transition: .3s ease;
+        font-size: 16px;
+        color: #54545495;
+        font-weight: 500;
+        pointer-events: none;
+    }
+
+    &__inputbox input {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin-top: 20px;
+        height: 100%;
+        width: 100%;
+        background: transparent;
+        outline: none;
+        border-radius: 5px;
+        border: 2px solid $red;
+    }
+    &__inputbox input:focus~label,
+    &__inputbox input:valid~label {
+        top: 20px;
+        font-size: 12px;
+        color: $red;
+        background-color: #f6f6f6;
+    }
+
+    &__inputbox textarea { 
+        bottom: -30px;
+       position: relative;
+        width: 50%;
+    }
+
+    &__inputbox button {
+        bottom: -25px;
+        position: absolute;
+    }
+
+    &__inputbox input[type="number"] {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        position: relative;
+        width: 20%;
+        top: 0;
+    }
+
+    &__inputlist { 
+        flex: 2;
+    }
+
+    &__inputlist label {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        position: relative;
+        bottom: 68%;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    &__inputlist input {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin-top: 20px;
+        height: 35px;
+        width: 100%;
+        padding: 7px;
+        outline: none;
+        border-radius: 5px;
+        border: 1px solid rgb(220, 220, 220);
+    }
+
+    &__column {
+        display: flex;
+        flex-direction: column;
+        margin: 0 5px 0.5rem 0;
+        width: 50%;
+    }
+
+    &__column button {
+        background: none;
+        outline: none;
+        cursor: pointer;
+        font-weight: 500;
+        border-radius: 2px;
+        padding: 5px 10px;
+    }
+
+    &__categorias {
+        display: flex;
+        flex-direction: column;
+        margin: 0 5px 0.5rem 0;
+        width: 50%;
+    }
+
+    &__categorias label {
+        position: relative;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        bottom: 68%;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    
+}
+
+.forms h2 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    outline: none;
+    font-size: 2em;
+    text-align: center;
+    padding-top: 20px;
+    margin-bottom: 2em;
+}
+.forms hr {
+    margin-top: -40px;
+    border: 1px solid $red;
+}

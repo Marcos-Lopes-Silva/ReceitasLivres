@@ -1,0 +1,72 @@
+@import "@/styles/variaveis";
+@import "@/styles/breakpoints";
+
+
+.sidebar {
+    background-color: #f6f6f6;
+    display: flex;
+    position: fixed;
+    height: 100%;
+    right: 0;
+    top: 0px;
+    width: 250px;
+    animation: showSidebar .4s;
+    
+
+    @keyframes showSidebar {
+      from {
+        opacity: 0;
+        width: 0;
+      }
+      to {
+        opacity: 1;
+        width: 250px;
+      }
+    }
+
+   
+    
+
+    &__close {
+      list-style-type: none;
+      width: 100%;
+      background-color: #b8b8b8;
+      margin-top: -9px;
+      display: flex;
+      justify-content: center;
+      bottom: 0;
+      cursor: pointer;
+    }
+
+  &__list {
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+    top: 5%;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    
+    
+  }
+
+  &__link {
+    list-style-type: none;
+    display: flex;
+    margin-bottom: 15px;
+    padding: 0 20px;
+
+    a {
+        color: $dark;
+        cursor: pointer;
+        font-size: 25px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: .2s ease;
+
+        &:hover {
+            color: $dark-grey;
+        }
+    }
+}
+}

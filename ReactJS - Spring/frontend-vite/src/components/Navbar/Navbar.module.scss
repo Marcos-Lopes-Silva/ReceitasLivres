@@ -1,0 +1,93 @@
+@import "@/styles/variaveis";
+@import "@/styles/breakpoints";
+
+.nav {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 1100px;
+    margin: 20px auto;
+    height: 100px;
+    max-width: calc(100% - 20px);
+
+
+    @media (max-width: $desktop_xsm) {
+        padding: 0px $padding-horizontal-mobile;
+    }
+
+    @media (min-width: $desktop_xsm) and (max-width: $desktop_sm) {
+        padding: 0px $padding-horizontal-sm;
+    }
+
+    @media (min-width: $desktop_sm) and (max-width: $desktop_md) {
+        padding: 0px $padding-horizontal-md;
+    }
+
+    &__list {
+        align-items: center;
+        display: flex;
+    }
+
+    &__list2 {
+        width: 100%;
+        align-items: center;
+        display: flex;
+
+        img {
+            width: 80px;
+            height: 80px;
+            margin-right: 20px;
+            border-radius: 50%;
+            position: relative;
+            left: 100%;
+            cursor: pointer;
+        }
+    }
+
+
+
+    &__link {
+        list-style-type: none;
+        display: flex;
+        padding: 0 20px;
+
+        a {
+            color: $dark;
+            cursor: pointer;
+            font-size: 28px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: .2s ease;
+
+            &:hover {
+                color: $dark-grey;
+            }
+        }
+    }
+
+    &__sidebutton {
+        position: relative;
+        left: 100%;
+        list-style-type: none;
+        display: flex;
+        padding-left: 10px;
+
+        &:hover {
+            cursor: pointer;
+            color: $dark-grey;
+        }
+
+        a {
+
+            color: $dark;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: .2s ease;
+
+            &:hover {
+                color: $dark-grey;
+            }
+        }
+    }
+}
